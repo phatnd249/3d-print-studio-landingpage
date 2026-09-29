@@ -1,0 +1,75 @@
+/**
+ * Design Tokens & Variables - Print 3D Studio
+ * Trích xuất chuẩn xác từ hình ảnh reference thiết kế
+ */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Brand Colors */
+  --color-primary: #0066ff;
+  --color-primary-hover: #0052cc;
+  --color-primary-light: #e6f0ff;
+  --color-primary-border: #93c5fd;
+  --color-primary-soft: #dbeafe;
+
+  /* Material Indicator Colors */
+  --color-pla: #00b050;
+  --color-petg: #0066ff;
+  --color-petg-cf: #f59e0b;
+  --color-abs: #ef4444;
+  --color-tpu: #ff6600;
+
+  /* Backgrounds & Surfaces */
+  --color-bg-body: #ffffff;
+  --color-bg-hero: linear-gradient(180deg, #d7ebff 0%, #e8f3ff 35%, #f0f7ff 70%, #ffffff 100%);
+  --color-bg-services: linear-gradient(180deg, #ffffff 0%, #e8f3ff 30%, #d7ebff 100%);
+  --color-bg-materials: #0066ff;
+  --color-bg-pricing: #ffffff;
+  --color-surface-card: #ffffff;
+  --color-surface-translucent: rgba(255, 255, 255, 0.12);
+  --color-border-translucent: rgba(255, 255, 255, 0.25);
+
+  /* Typography Colors */
+  --color-text-main: #0a0e1a;
+  --color-text-sub: #1e293b;
+  --color-text-muted: #64748b;
+  --color-text-blue: #0066ff;
+  --color-text-white: #ffffff;
+
+  /* Fonts */
+  --font-family-base: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  --font-family-heading: 'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 80px;
+
+  /* Layout */
+  --container-max-width: 1240px;
+  --container-padding: 24px;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-2xl: 24px;
+  --radius-pill: 9999px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 102, 255, 0.04);
+  --shadow-card: 0 10px 30px rgba(0, 102, 255, 0.07);
+  --shadow-card-hover: 0 16px 36px rgba(0, 102, 255, 0.12);
+  --shadow-pill: 0 4px 14px rgba(0, 102, 255, 0.12);
+  --shadow-btn: 0 8px 20px rgba(0, 102, 255, 0.25);
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}

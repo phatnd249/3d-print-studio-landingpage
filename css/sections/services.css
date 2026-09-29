@@ -1,0 +1,100 @@
+/**
+ * Section: SERVICES (DỊCH VỤ)
+ * Tái hiện chính xác 6 Card dịch vụ từ hình 2
+ */
+.section-services {
+  background: var(--color-bg-services);
+  padding-top: 80px;
+  padding-bottom: 90px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* Service Card */
+.service-card {
+  background-color: #ffffff;
+  border: 1.5px solid #93c5fd;
+  border-radius: var(--radius-2xl);
+  padding: 36px 28px;
+  text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 102, 255, 0.04);
+  transition: all var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.service-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.service-icon-box {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.service-icon-img {
+  width: auto;
+  height: 76px;
+  object-fit: contain;
+  transition: transform var(--transition-fast);
+}
+
+.service-card:hover .service-icon-img {
+  transform: scale(1.08);
+}
+
+.service-svg-icon {
+  width: 72px;
+  height: 72px;
+  transition: transform var(--transition-fast);
+}
+
+.service-card:hover .service-svg-icon {
+  transform: scale(1.08);
+}
+
+.service-card-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  letter-spacing: 0.01em;
+  margin-bottom: 12px;
+  line-height: 1.35;
+}
+
+.service-card-desc {
+  font-size: 0.95rem;
+  color: #475569;
+  line-height: 1.7;
+  font-weight: 500;
+}
+
+/* Responsive Services */
+@media (max-width: 1024px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 640px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .service-card {
+    padding: 28px 20px;
+  }
+}

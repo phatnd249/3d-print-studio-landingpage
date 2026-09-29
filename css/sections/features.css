@@ -1,0 +1,105 @@
+/**
+ * Section: FEATURES / WHY CHOOSE US
+ * Tái hiện chính xác khối banner xanh "Vì sao nên chọn Print 3D Studio?" từ hình 3
+ */
+.section-features {
+  padding-top: 20px;
+  padding-bottom: 40px;
+}
+
+.why-us-banner {
+  background-color: var(--color-primary);
+  border-radius: 28px;
+  padding: 48px 36px;
+  color: #ffffff;
+  box-shadow: 0 16px 40px rgba(0, 102, 255, 0.2);
+}
+
+.why-us-title {
+  text-align: center;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 36px;
+  letter-spacing: -0.01em;
+}
+
+.why-us-card-wrapper {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1.5px solid rgba(255, 255, 255, 0.25);
+  border-radius: 22px;
+  padding: 36px 24px;
+}
+
+.why-us-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+}
+
+.why-us-item {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.why-us-icon {
+  width: 56px;
+  height: 56px;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-fast);
+}
+
+.why-us-item:hover .why-us-icon {
+  transform: translateY(-4px) scale(1.08);
+}
+
+.why-us-heading {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.why-us-text {
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* Responsive Why Us */
+@media (max-width: 1200px) {
+  .why-us-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-us-banner {
+    padding: 36px 20px;
+    border-radius: 20px;
+  }
+
+  .why-us-card-wrapper {
+    padding: 24px 16px;
+  }
+
+  .why-us-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .why-us-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}

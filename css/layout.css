@@ -1,0 +1,85 @@
+/**
+ * Layout Structure
+ */
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.section {
+  width: 100%;
+  position: relative;
+  padding-top: var(--spacing-4xl);
+  padding-bottom: var(--spacing-4xl);
+}
+
+/* Common Section Header Styles */
+.section-header {
+  text-align: center;
+  margin-bottom: var(--spacing-3xl);
+}
+
+.section-header.text-left {
+  text-align: left;
+}
+
+/* Badge / Tag Pill (e.g. "DỊCH VỤ", "BẢNG GIÁ THAM KHẢO") */
+.section-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 20px;
+  border-radius: var(--radius-pill);
+  border: 1.5px solid #38bdf8;
+  color: var(--color-primary);
+  background-color: rgba(224, 242, 254, 0.5);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: var(--spacing-md);
+}
+
+/* Section Title Typography */
+.section-title {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--color-text-main);
+  line-height: 1.25;
+}
+
+.section-title .text-blue {
+  color: var(--color-primary);
+  display: block;
+}
+
+.section-subtitle {
+  font-size: clamp(1rem, 1.5vw, 1.15rem);
+  color: var(--color-text-sub);
+  margin-top: var(--spacing-md);
+  max-width: 780px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+.section-subtitle.text-blue-weight {
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding-top: var(--spacing-2xl);
+    padding-bottom: var(--spacing-2xl);
+  }
+
+  .section-header {
+    margin-bottom: var(--spacing-2xl);
+  }
+}

@@ -1,0 +1,116 @@
+/**
+ * Section: PRICING (BẢNG GIÁ THAM KHẢO)
+ * Tái hiện chính xác Section Bảng Giá từ hình 4
+ */
+.section-pricing {
+  background: var(--color-bg-pricing);
+  padding-top: 80px;
+  padding-bottom: 90px;
+}
+
+.pricing-subtitle {
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  margin-top: 16px;
+  line-height: 1.6;
+}
+
+.text-blue-bold {
+  color: var(--color-primary);
+  font-weight: 800;
+}
+
+.text-blue-factors {
+  color: #0284c7;
+  font-weight: 600;
+}
+
+.pricing-layout {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  align-items: center;
+  gap: 60px;
+  margin-top: 40px;
+}
+
+/* Pricing Table */
+.pricing-table-wrapper {
+  background: #ffffff;
+  border: 1.5px solid #60a5fa;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 102, 255, 0.06);
+}
+
+.pricing-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.pricing-table thead tr {
+  background-color: #e0f2fe;
+}
+
+.pricing-table th {
+  padding: 18px 28px;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  border-bottom: 1.5px solid #bfdbfe;
+}
+
+.pricing-table td {
+  padding: 18px 28px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1e293b;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.pricing-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.pricing-table .price-val {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+/* Pricing CTA Box */
+.pricing-cta-box {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.btn-cta-pricing {
+  padding: 18px 36px;
+  font-size: 1.05rem;
+  box-shadow: 0 10px 28px rgba(0, 102, 255, 0.35);
+}
+
+/* Responsive Pricing */
+@media (max-width: 992px) {
+  .pricing-layout {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .pricing-cta-box {
+    justify-content: center;
+  }
+
+  .btn-cta-pricing {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 576px) {
+
+  .pricing-table th,
+  .pricing-table td {
+    padding: 14px 18px;
+    font-size: 0.92rem;
+  }
+}

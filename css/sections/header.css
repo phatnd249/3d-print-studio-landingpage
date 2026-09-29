@@ -1,0 +1,314 @@
+/**
+ * Section: HEADER / NAVIGATION - Modern Glassmorphism Design
+ * Navigation đẹp hơn với hiệu ứng glass và hover mượt mà
+ */
+.site-header {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 251, 255, 0.92) 100%);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1.5px solid rgba(147, 197, 253, 0.3);
+  box-shadow: 0 4px 24px rgba(0, 102, 255, 0.06), 0 1px 2px rgba(0, 102, 255, 0.03);
+  transition: all var(--transition-base);
+}
+
+.site-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, rgba(0, 102, 255, 0.2) 50%, transparent 100%);
+}
+
+.header-container {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+/* Logo với hiệu ứng đẹp hơn */
+.header-logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  flex-shrink: 0;
+  position: relative;
+  transition: all var(--transition-base);
+}
+
+.header-logo::after {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 102, 255, 0.1) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  z-index: -1;
+}
+
+.header-logo:hover::after {
+  opacity: 1;
+}
+
+.header-logo:hover {
+  transform: scale(1.05) rotate(2deg);
+}
+
+.logo-img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 102, 255, 0.15));
+}
+
+/* Navigation Pill Style - Cải tiến */
+.nav-pill {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 251, 255, 0.95) 100%);
+  border: 2px solid rgba(147, 197, 253, 0.4);
+  border-radius: 100px;
+  padding: 8px 12px;
+  box-shadow: 0 8px 32px rgba(0, 102, 255, 0.12),
+    0 2px 8px rgba(0, 102, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-pill::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 100px;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(147, 197, 253, 0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.nav-pill:hover::before {
+  opacity: 1;
+}
+
+.nav-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 22px;
+  font-size: 0.96rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  text-decoration: none;
+  border-radius: 100px;
+  transition: all var(--transition-base);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+  opacity: 0;
+  transition: opacity var(--transition-base);
+  z-index: -1;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+}
+
+.nav-link:hover::before {
+  opacity: 1;
+}
+
+.nav-link.is-active {
+  background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 16px rgba(0, 102, 255, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.nav-link.is-active::before {
+  opacity: 1;
+}
+
+/* Header Actions - Cải tiến button */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-nav {
+  font-size: 0.96rem;
+  font-weight: 800;
+  padding: 13px 28px;
+  white-space: nowrap;
+  box-shadow: 0 6px 20px rgba(0, 102, 255, 0.3);
+  transition: all var(--transition-base);
+}
+
+.btn-nav:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(0, 102, 255, 0.4);
+}
+
+.btn-nav:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 16px rgba(0, 102, 255, 0.3);
+}
+
+/* Mobile Toggle Button - Đẹp hơn */
+.mobile-toggle-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 248, 255, 0.9) 100%);
+  border: 2px solid rgba(147, 197, 253, 0.4);
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1001;
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.1);
+  transition: all var(--transition-base);
+}
+
+.mobile-toggle-btn:hover {
+  border-color: #0066ff;
+  box-shadow: 0 6px 16px rgba(0, 102, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.hamburger-bar {
+  width: 24px;
+  height: 3px;
+  background: linear-gradient(90deg, #0066ff 0%, #0052cc 100%);
+  border-radius: 3px;
+  transition: all var(--transition-base);
+}
+
+.mobile-toggle-btn:hover .hamburger-bar {
+  background: linear-gradient(90deg, #0052cc 0%, #003d99 100%);
+}
+
+/* Mobile Drawer - Cải tiến */
+.mobile-drawer {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 320px;
+  height: 100vh;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 251, 255, 0.98) 100%);
+  backdrop-filter: blur(20px);
+  box-shadow: -8px 0 40px rgba(0, 102, 255, 0.15);
+  z-index: 999;
+  padding: 100px 28px 28px;
+  transition: right var(--transition-base);
+  overflow-y: auto;
+  border-left: 2px solid rgba(147, 197, 253, 0.3);
+}
+
+.mobile-drawer.is-open {
+  right: 0;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.mobile-nav-link {
+  display: block;
+  padding: 16px 24px;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #1e3a8a;
+  text-decoration: none;
+  border-radius: 16px;
+  transition: all var(--transition-base);
+  background: rgba(255, 255, 255, 0.5);
+  border: 1.5px solid transparent;
+}
+
+.mobile-nav-link:hover {
+  background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateX(-4px);
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.3);
+}
+
+/* Responsive Header */
+@media (max-width: 1100px) {
+  .header-inner {
+    gap: 32px;
+  }
+
+  .nav-link {
+    padding: 10px 18px;
+    font-size: 0.92rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .nav-pill {
+    display: none;
+  }
+
+  .mobile-toggle-btn {
+    display: flex;
+  }
+
+  .btn-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .logo-img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .mobile-drawer {
+    width: 280px;
+  }
+}
+
+/* Mobile Responsive - Logo size */
+@media (max-width: 576px) {
+  .logo-img {
+    width: 60px;
+    height: 60px;
+  }
+}

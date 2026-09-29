@@ -1,0 +1,55 @@
+<!-- Consultation & Quote Modal Component -->
+<div class="modal" id="quote-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+  <div class="modal-overlay" data-close="true"></div>
+  <div class="modal-dialog">
+    <button type="button" class="modal-close-btn" data-close="true" aria-label="Đóng cửa sổ">
+      &times;
+    </button>
+    <div class="modal-header">
+      <span class="section-badge" style="margin-bottom: 8px;">TƯ VẤN &amp; BÁO GIÁ</span>
+      <h3 id="modalTitle" style="font-size: 1.5rem; font-weight: 800; color: #0b0f19; margin-bottom: 8px;">
+        Nhận Báo Giá In 3D Nhanh
+      </h3>
+      <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 24px;">
+        Gửi thông tin mẫu hoặc yêu cầu của bạn, Print 3D Studio sẽ liên hệ tư vấn phương án tối ưu nhất.
+      </p>
+    </div>
+    
+    <form class="modal-form" id="quoteForm">
+      <div style="margin-bottom: 16px;">
+        <label for="customerName" style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; color: #1e293b;">Họ và tên *</label>
+        <input type="text" id="customerName" name="name" required placeholder="Ví dụ: Nguyễn Văn A" style="width: 100%; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 0.95rem; outline: none; transition: border-color 0.2s;">
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <label for="customerPhone" style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; color: #1e293b;">Số điện thoại / Zalo *</label>
+        <input type="tel" id="customerPhone" name="phone" required placeholder="Ví dụ: 037 251 7173" style="width: 100%; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 0.95rem; outline: none; transition: border-color 0.2s;">
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <label for="materialChoice" style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; color: #1e293b;">Nhu cầu vật liệu</label>
+        <select id="materialChoice" name="material" style="width: 100%; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 0.95rem; outline: none; background-color: #fff;">
+          <option value="Tư vấn giúp tôi">Chưa rõ (Cần tư vấn thêm)</option>
+          <option value="PLA">PLA (Mô hình, trang trí)</option>
+          <option value="PETG">PETG (Bền, dẻo, chịu lực)</option>
+          <option value="PETG-CF">PETG-CF (Cứng, sợi carbon cao cấp)</option>
+          <option value="ABS">ABS (Chịu nhiệt, cơ tính cao)</option>
+          <option value="TPU 95A">TPU 95A (Dẻo, cao su đàn hồi)</option>
+        </select>
+      </div>
+
+      <div style="margin-bottom: 24px;">
+        <label for="projectNote" style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; color: #1e293b;">Ghi chú hoặc link file 3D (nếu có)</label>
+        <textarea id="projectNote" name="note" rows="3" placeholder="Kích thước mong muốn, link Google Drive file STL/STEP..." style="width: 100%; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 0.95rem; outline: none; resize: vertical;"></textarea>
+      </div>
+
+      <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1rem; padding: 16px;">
+        GỬI YÊU CẦU BÁO GIÁ NGAY &rarr;
+      </button>
+
+      <div id="formSuccessMsg" style="display: none; margin-top: 16px; padding: 12px; background: #ecfdf5; border: 1px solid #10b981; border-radius: 8px; color: #065f46; font-size: 0.9rem; text-align: center; font-weight: 600;">
+        Cảm ơn bạn! Yêu cầu đã được gửi thành công. Chúng tôi sẽ liên hệ trong ít phút.
+      </div>
+    </form>
+  </div>
+</div>

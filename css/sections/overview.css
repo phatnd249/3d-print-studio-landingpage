@@ -1,0 +1,188 @@
+/**
+ * Section: OVERVIEW / MATERIALS (VẬT LIỆU IN 3D)
+ * Tái hiện chính xác 5 Card vật liệu từ nửa dưới hình 3
+ */
+.section-overview {
+  background: var(--color-bg-materials);
+  padding-top: 70px;
+  padding-bottom: 90px;
+}
+
+.materials-main-title {
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+}
+
+.materials-main-subtitle {
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  color: #ffffff;
+  font-weight: 600;
+  line-height: 1.6;
+  max-width: 820px;
+  margin: 0 auto 48px;
+}
+
+.materials-container {
+  max-width: 1380px;
+}
+
+.materials-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+/* Material Card - To lớn & nổi bật */
+.material-card {
+  background-color: #ffffff;
+  border-radius: 28px;
+  padding: 44px 26px;
+  min-height: 440px;
+  box-shadow: 0 14px 36px rgba(0, 102, 255, 0.08);
+  border: 1.5px solid rgba(147, 197, 253, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.material-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--color-primary);
+  box-shadow: 0 24px 50px rgba(0, 102, 255, 0.16);
+}
+
+/* Pill Bar atop each card - To & rõ nét */
+.material-pill-bar {
+  width: 64px;
+  height: 24px;
+  border-radius: var(--radius-pill);
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.material-title {
+  font-size: 2.2rem;
+  font-weight: 900;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+}
+
+.material-tagline {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 24px;
+  line-height: 1.45;
+}
+
+/* Bullet Points - Thoáng & dễ đọc */
+.material-bullet-list {
+  text-align: left;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  font-size: 0.98rem;
+  color: #334155;
+  line-height: 1.7;
+  font-weight: 500;
+  padding-top: 20px;
+  border-top: 1.5px solid #f1f5f9;
+}
+
+.material-bullet-list li {
+  position: relative;
+  padding-left: 18px;
+}
+
+.material-bullet-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: -2px;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #94a3b8;
+}
+
+/* Specific Card Themes */
+/* 1. PLA */
+.material-pla .material-pill-bar {
+  background-color: var(--color-pla);
+}
+
+.material-pla .material-title {
+  color: var(--color-pla);
+}
+
+/* 2. PETG */
+.material-petg .material-pill-bar {
+  background-color: var(--color-petg);
+}
+
+.material-petg .material-title {
+  color: var(--color-petg);
+}
+
+/* 3. PETG-CF */
+.material-petg-cf .material-pill-bar {
+  background-color: var(--color-petg-cf);
+}
+
+.material-petg-cf .material-title {
+  color: var(--color-petg-cf);
+}
+
+/* 4. ABS */
+.material-abs .material-pill-bar {
+  background-color: var(--color-abs);
+}
+
+.material-abs .material-title {
+  color: var(--color-abs);
+}
+
+/* 5. TPU 95A */
+.material-tpu .material-pill-bar {
+  background-color: var(--color-tpu);
+}
+
+.material-tpu .material-title {
+  color: var(--color-tpu);
+}
+
+/* Responsive Materials */
+@media (max-width: 1280px) {
+  .materials-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .materials-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .material-card {
+    padding: 36px 24px;
+    min-height: auto;
+  }
+
+  .material-title {
+    font-size: 2rem;
+  }
+
+  .material-tagline {
+    font-size: 1rem;
+  }
+}

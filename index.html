@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Print 3D Studio - Dịch Vụ In 3D & Tạo Mẫu Nhanh Tại Biên Hòa</title>
+  <meta name="description"
+    content="Print 3D Studio - Nhận in 3D theo mẫu có sẵn hoặc thiết kế theo yêu cầu. Hỗ trợ cá nhân, sinh viên, doanh nghiệp tại Biên Hòa - Đồng Nai.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="./asset/icons/logo.png">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+
+  <!-- ==================== HEADER ==================== -->
+  <header id="header" class="site-header" aria-label="Main Navigation">
+    <div class="container header-container">
+      <div class="header-inner">
+        <!-- Logo -->
+        <a href="#hero" class="header-logo" aria-label="Trang chủ Print 3D Studio">
+          <img src="./asset/icons/logo.png" alt="Print 3D Studio Logo" class="logo-img" width="56" height="56">
+        </a>
+
+        <!-- Navigation Pill -->
+        <nav class="nav-pill" id="navbar">
+          <ul class="nav-list">
+            <li class="nav-item"><a href="#hero" class="nav-link is-active">Trang chủ</a></li>
+            <li class="nav-item"><a href="#services" class="nav-link">Dịch vụ</a></li>
+            <li class="nav-item"><a href="#pricing" class="nav-link">Bảng giá</a></li>
+            <li class="nav-item"><a href="#gallery" class="nav-link">Sản phẩm/ Dự án</a></li>
+            <li class="nav-item"><a href="#news" class="nav-link">Tin tức</a></li>
+            <li class="nav-item"><a href="#footer" class="nav-link">Liên hệ</a></li>
+          </ul>
+        </nav>
+
+        <!-- Header Action -->
+        <div class="header-actions">
+          <button type="button" class="btn btn-nav open-modal-btn" data-target="quote-modal">
+            Tư vấn &amp; Báo giá
+          </button>
+
+          <!-- Mobile Toggle Button -->
+          <button type="button" class="mobile-toggle-btn" id="mobileMenuToggle" aria-label="Mở menu điều hướng">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <ul class="mobile-nav-list">
+        <li><a href="#hero" class="mobile-nav-link">Trang chủ</a></li>
+        <li><a href="#services" class="mobile-nav-link">Dịch vụ</a></li>
+        <li><a href="#pricing" class="mobile-nav-link">Bảng giá</a></li>
+        <li><a href="#gallery" class="mobile-nav-link">Sản phẩm/ Dự án</a></li>
+        <li><a href="#news" class="mobile-nav-link">Tin tức</a></li>
+        <li><a href="#footer" class="mobile-nav-link">Liên hệ</a></li>
+      </ul>
+      <div class="mobile-drawer-cta">
+        <button type="button" class="btn btn-primary open-modal-btn" style="width: 100%;" data-target="quote-modal">
+          Tư vấn &amp; Báo giá
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== MAIN CONTENT ==================== -->
+  <main id="main-content">
+
+    <!-- 1. HERO SECTION -->
+    <section id="hero" class="section section-hero" aria-label="Hero Section">
+      <div class="container hero-container">
+        <div class="hero-grid">
+          <!-- Left Content -->
+          <div class="hero-content">
+            <h1 class="hero-title">
+              <span>PRINT 3D</span>
+              <span>STUDIO</span>
+            </h1>
+
+            <p class="hero-description">
+              Nhận in 3D theo mẫu có sẵn hoặc thiết kế theo yêu cầu.<br>
+              Hỗ trợ cá nhân, sinh viên, doanh nghiệp và các dự án cần<br>
+              tạo mẫu nhanh tại <strong class="location-highlight">Biên Hòa – Đồng Nai.</strong>
+            </p>
+
+            <div class="hero-actions">
+              <button type="button" class="btn btn-primary open-modal-btn" data-target="quote-modal">
+                <span>NHẬN BÁO GIÁ NGAY</span>
+                <svg class="btn-arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+
+              <a href="#gallery" class="btn btn-secondary">
+                XEM SẢN PHẨM
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Visual: 3D Printer Illustration -->
+          <div class="hero-visual">
+            <div class="visual-wrapper">
+              <img src="./asset/images/Landing Page Print 3D.png" alt="Máy in 3D công nghệ cao Print 3D Studio"
+                class="hero-printer-img" width="560" height="560">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. SERVICES SECTION -->
+    <section id="services" class="section section-services" aria-label="Dịch vụ Print 3D Studio">
+      <div class="container services-container">
+        <div class="section-header text-left">
+          <span class="section-badge">DỊCH VỤ</span>
+          <h2 class="section-title">
+            <span>PRINT 3D STUDIO</span>
+            <span class="text-blue">CÓ THỂ GIÚP BẠN NHỮNG GÌ?</span>
+          </h2>
+        </div>
+
+        <div class="services-grid">
+          <!-- Service Card 1 -->
+          <div class="service-card">
+            <div class="service-icon-box">
+              <img src="./asset/icons/icon-1.png" alt="In 3D theo yêu cầu" class="service-icon-img" width="80"
+                height="80">
+            </div>
+            <h3 class="service-card-title">IN 3D THEO YÊU CẦU</h3>
+            <p class="service-card-desc">
+              Nhận in từ file 3D có sẵn với nhiều kích thước và kiểu dáng khác nhau.
+            </p>
+          </div>
+
+          <!-- Service Card 2: Thiết kế & Chỉnh sửa mẫu 3D -->
+          <div class="service-card">
+            <div class="service-icon-box">
+              <img src="./asset/icons/icon-2.png" alt="Thiết kế & chỉnh sửa mẫu 3D" class="service-icon-img" width="80"
+                height="80">
+            </div>
+            <h3 class="service-card-title">THIẾT KẾ &amp; CHỈNH SỬA MẪU 3D</h3>
+            <p class="service-card-desc">
+              Nhận in từ file 3D có sẵn với nhiều kích thước và kiểu dáng khác nhau.
+            </p>
+          </div>
+
+          <!-- Service Card 3: Tạo mẫu Prototype -->
+          <div class="service-card">
+            <div class="service-icon-box">
+              <img src="./asset/icons/icon-3.png" alt="Tạo mẫu Prototype" class="service-icon-img" width="80"
+                height="80">
+            </div>
+            <h3 class="service-card-title">TẠO MẪU PROTOTYPE</h3>
+            <p class="service-card-desc">
+              Phù hợp với cá nhân, sinh viên, startup và doanh nghiệp cần thử nghiệm sản phẩm.
+            </p>
+          </div>
+
+          <!-- Service Card 4: In mô hình -->
+          <div class="service-card">
+            <div class="service-icon-box">
+              <img src="./asset/icons/icon-4.png" alt="In mô hình" class="service-icon-img" width="80" height="80">
+            </div>
+            <h3 class="service-card-title">IN MÔ HÌNH</h3>
+            <p class="service-card-desc">
+              Mô hình nhân vật, kiến trúc, sản phẩm trưng bày, mô hình học tập...
+            </p>
+          </div>
+
+          <!-- Service Card 5: In phụ kiện -->
+          <div class="service-card">
+            <div class="service-icon-box">
+              <img src="./asset/icons/icon-5.png" alt="In phụ kiện" class="service-icon-img" width="80" height="80">
+            </div>
+            <h3 class="service-card-title">IN PHỤ KIỆN</h3>
+            <p class="service-card-desc">
+              Mô hình nhân vật, kiến trúc, sản phẩm trưng bày, mô hình học tập...
+            </p>
+          </div>
+
+          <!-- Service Card 6: In sản phẩm cá nhân hóa -->
+          <div class="service-card">
+            <div class="service-icon-box">
+              <img src="./asset/icons/icon-6.png" alt="In sản phẩm cá nhân hóa" class="service-icon-img" width="80"
+                height="80">
+            </div>
+            <h3 class="service-card-title">IN SẢN PHẨM CÁ NHÂN HÓA</h3>
+            <p class="service-card-desc">
+              Tên, logo, chữ, quà tặng hoặc các sản phẩm thiết kế riêng.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. WHY CHOOSE US SECTION -->
+    <section id="why-us" class="section section-features" aria-label="Vì sao nên chọn Print 3D Studio">
+      <div class="container features-container">
+        <div class="why-us-banner">
+          <h2 class="why-us-title">Vì sao nên chọn Print 3D Studio?</h2>
+
+          <div class="why-us-card-wrapper">
+            <div class="why-us-grid">
+              <!-- Item 1 -->
+              <div class="why-us-item">
+                <div class="why-us-icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="13" r="8"></circle>
+                    <path d="M12 9v4l2 2"></path>
+                    <path d="M5 3L2 6"></path>
+                    <path d="M22 6l-3-3"></path>
+                    <path d="M12 2v3"></path>
+                    <polyline points="9 13 11 15 15 11"></polyline>
+                  </svg>
+                </div>
+                <h3 class="why-us-heading">In nhanh</h3>
+                <p class="why-us-text">Tối ưu thời gian từ file thiết kế đến sản phẩm thực tế.</p>
+              </div>
+
+              <!-- Item 2 -->
+              <div class="why-us-item">
+                <div class="why-us-icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z">
+                    </path>
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                    <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                  </svg>
+                </div>
+                <h3 class="why-us-heading">In theo yêu cầu</h3>
+                <p class="why-us-text">Kích thước, hình dáng và số lượng tùy chỉnh.</p>
+              </div>
+
+              <!-- Item 3 -->
+              <div class="why-us-item">
+                <div class="why-us-icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                    <polyline points="2 17 12 22 22 17"></polyline>
+                    <polyline points="2 12 12 17 22 12"></polyline>
+                  </svg>
+                </div>
+                <h3 class="why-us-heading">Nhiều lựa chọn</h3>
+                <p class="why-us-text">Hỗ trợ nhiều loại mẫu và nhu cầu sử dụng.</p>
+              </div>
+
+              <!-- Item 4 -->
+              <div class="why-us-item">
+                <div class="why-us-icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                      d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+                    </path>
+                    <circle cx="12" cy="10" r="2"></circle>
+                  </svg>
+                </div>
+                <h3 class="why-us-heading">Tối ưu chi phí</h3>
+                <p class="why-us-text">Phù hợp với in mẫu nhỏ, prototype hoặc sản phẩm cá nhân.</p>
+              </div>
+
+              <!-- Item 5 -->
+              <div class="why-us-item">
+                <div class="why-us-icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                    <line x1="16" y1="13" x2="8" y2="13"></line>
+                    <line x1="16" y1="17" x2="8" y2="17"></line>
+                    <polyline points="10 9 9 9 8 9"></polyline>
+                  </svg>
+                </div>
+                <h3 class="why-us-heading">Tư vấn trước khi in</h3>
+                <p class="why-us-text">Hỗ trợ kiểm tra file và tư vấn phương án phù hợp.</p>
+              </div>
+
+              <!-- Item 6 -->
+              <div class="why-us-item">
+                <div class="why-us-icon">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="1.8"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                    <circle cx="12" cy="10" r="3"></circle>
+                  </svg>
+                </div>
+                <h3 class="why-us-heading">Khu vực Biên Hòa - Đồng Nai</h3>
+                <p class="why-us-text">Thuận tiện trao đổi, nhận hàng hoặc giao hàng trong khu vực.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. MATERIALS SECTION -->
+    <section id="materials" class="section section-overview" aria-label="Vật liệu in 3D">
+      <div class="container materials-container">
+        <div class="section-header text-center">
+          <h2 class="materials-main-title">Vật liệu in 3D</h2>
+          <p class="materials-main-subtitle">
+            Mỗi vật liệu có đặc tính cơ học và nhiệt khác nhau.<br>
+            Lựa chọn đúng giúp tăng độ bền, giảm chi phí và tối ưu hiệu suất sản phẩm.
+          </p>
+        </div>
+
+        <div class="materials-grid">
+          <!-- Card 1: PLA -->
+          <div class="material-card material-pla">
+            <div class="material-pill-bar"></div>
+            <h3 class="material-title">PLA</h3>
+            <p class="material-tagline">Dễ in &bull; Đẹp &bull; Phổ biến</p>
+            <ul class="material-bullet-list">
+              <li>Mô hình, đồ trang trí, prototype.</li>
+              <li>Phù hợp sản phẩm không yêu cầu chịu nhiệt cao.</li>
+            </ul>
+          </div>
+
+          <!-- Card 2: PETG -->
+          <div class="material-card material-petg">
+            <div class="material-pill-bar"></div>
+            <h3 class="material-title">PETG</h3>
+            <p class="material-tagline">Bền &bull; Dẻo &bull; Chịu va đập tốt</p>
+            <ul class="material-bullet-list">
+              <li>Hộp, đồ DIY, chi tiết sử dụng thực tế.</li>
+              <li>Phù hợp khi cần bền hơn PLA.</li>
+            </ul>
+          </div>
+
+          <!-- Card 3: PETG-CF -->
+          <div class="material-card material-petg-cf">
+            <div class="material-pill-bar"></div>
+            <h3 class="material-title">PETG-CF</h3>
+            <p class="material-tagline">Cứng hơn &bull; Ổn định &bull; Bề mặt cao cấp</p>
+            <ul class="material-bullet-list">
+              <li>Jig, gá đỡ, linh kiện, prototype kỹ thuật.</li>
+              <li>Phù hợp chi tiết cần độ cứng và ổn định cao.</li>
+            </ul>
+          </div>
+
+          <!-- Card 4: ABS -->
+          <div class="material-card material-abs">
+            <div class="material-pill-bar"></div>
+            <h3 class="material-title">ABS</h3>
+            <p class="material-tagline">Cứng &bull; Bền &bull; Phù hợp chi tiết kỹ thuật</p>
+            <ul class="material-bullet-list">
+              <li>Vỏ máy, linh kiện, chi tiết kỹ thuật.</li>
+              <li>Phù hợp sản phẩm cần độ bền cơ học cao.</li>
+            </ul>
+          </div>
+
+          <!-- Card 5: TPU 95A -->
+          <div class="material-card material-tpu">
+            <div class="material-pill-bar"></div>
+            <h3 class="material-title">TPU 95A</h3>
+            <p class="material-tagline">Mềm &bull; Dẻo &bull; Đàn hồi</p>
+            <ul class="material-bullet-list">
+              <li>Gioăng, ốp, đế, chi tiết chống rung.</li>
+              <li>Phù hợp sản phẩm cần co giãn hoặc linh hoạt.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. PRICING SECTION -->
+    <section id="pricing" class="section section-pricing" aria-label="Bảng giá tham khảo">
+      <div class="container pricing-container">
+        <div class="section-header text-left">
+          <span class="section-badge">BẢNG GIÁ THAM KHẢO</span>
+          <h2 class="section-title">
+            <span>CHI PHÍ IN 3D</span>
+            <span>ĐƯỢC TÍNH NHƯ THẾ NÀO?</span>
+          </h2>
+          <p class="pricing-subtitle">
+            <strong class="text-blue-bold">Dựa trên các yếu tố:</strong>
+            <span class="text-blue-factors">kích thước + khối lượng vật liệu + thời gian in + độ phức tạp + yêu cầu hoàn
+              thiện.</span>
+          </p>
+        </div>
+
+        <div class="pricing-layout">
+          <!-- Left Table -->
+          <div class="pricing-table-wrapper">
+            <table class="pricing-table">
+              <thead>
+                <tr>
+                  <th>Dịch vụ</th>
+                  <th>Giá tham khảo</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>In mẫu nhỏ</td>
+                  <td class="price-val">Từ 50.000đ</td>
+                </tr>
+                <tr>
+                  <td>In mô hình</td>
+                  <td class="price-val">Từ 100.000đ</td>
+                </tr>
+                <tr>
+                  <td>Thiết kế 3D</td>
+                  <td class="price-val">Liên hệ</td>
+                </tr>
+                <tr>
+                  <td>Đơn hàng số lượng lớn</td>
+                  <td class="price-val">Báo giá riêng</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Right Large CTA Button -->
+          <div class="pricing-cta-box">
+            <button type="button" class="btn btn-primary btn-cta-pricing open-modal-btn" data-target="quote-modal">
+              <span>NHẬN BÁO GIÁ CHI TIẾT</span>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. GALLERY SECTION -->
+    <section id="gallery" class="section section-gallery" aria-label="Sản phẩm và dự án thực hiện">
+      <div class="container gallery-container">
+        <div class="section-header text-center">
+          <h2 class="section-title">
+            <span>MỘT SỐ SẢN PHẨM &amp; DỰ ÁN</span>
+            <span class="text-blue">PRINT 3D THỰC HIỆN</span>
+          </h2>
+        </div>
+
+        <div class="gallery-grid">
+          <!-- Item 1 -->
+          <div class="gallery-card">
+            <div class="gallery-badge">Mô hình 1</div>
+            <div class="gallery-thumb-box">
+              <img src="./asset/images/gallery-figure.jpg" alt="Mô hình nhân vật 3D" class="gallery-img" loading="lazy">
+            </div>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="gallery-card">
+            <div class="gallery-badge">Mô hình 2</div>
+            <div class="gallery-thumb-box">
+              <img src="./asset/images/gallery-mechanic.jpg" alt="Chi tiết cơ khí và bánh răng kỹ thuật"
+                class="gallery-img" loading="lazy">
+            </div>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="gallery-card">
+            <div class="gallery-badge">Mô hình 3</div>
+            <div class="gallery-thumb-box">
+              <img src="./asset/images/gallery-architecture.jpg" alt="Mô hình kiến trúc biệt thự thu nhỏ"
+                class="gallery-img" loading="lazy">
+            </div>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="gallery-card">
+            <div class="gallery-badge">Mô hình 4</div>
+            <div class="gallery-thumb-box">
+              <img src="./asset/images/gallery-enclosure.jpg" alt="Vỏ hộp thiết bị điện tử custom" class="gallery-img"
+                loading="lazy">
+            </div>
+          </div>
+
+          <!-- Item 5 -->
+          <div class="gallery-card">
+            <div class="gallery-badge">Mô hình 5</div>
+            <div class="gallery-thumb-box">
+              <img src="./asset/images/gallery-custom-gift.jpg" alt="Móc khóa và quà tặng cá nhân hóa"
+                class="gallery-img" loading="lazy">
+            </div>
+          </div>
+
+          <!-- Item 6 -->
+          <div class="gallery-card">
+            <div class="gallery-badge">Mô hình 6</div>
+            <div class="gallery-thumb-box">
+              <img src="./asset/images/gallery-prototype-jig.jpg" alt="Đồ gá Jig và prototype kỹ thuật công nghiệp"
+                class="gallery-img" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. NEWS SECTION (TIN TỨC) -->
+    <section id="news" class="section section-news" aria-label="Tin tức và blog">
+      <div class="container news-container">
+        <div class="section-header text-center">
+          <span class="section-badge">TIN TỨC & BLOG</span>
+          <h2 class="section-title">
+            <span>CHIA SẺ KIẾN THỨC</span>
+            <span class="text-blue">VỀ CÔNG NGHỆ IN 3D</span>
+          </h2>
+        </div>
+
+        <!-- Empty State (Hiển thị khi chưa có tin tức) -->
+        <div class="news-empty-state">
+          <div class="news-empty-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+          </div>
+          <h3 class="news-empty-title">Nội dung đang được cập nhật</h3>
+          <p class="news-empty-text">
+            Chúng tôi đang chuẩn bị những bài viết hữu ích về công nghệ in 3D, <br>
+            hướng dẫn sử dụng, case study và xu hướng mới nhất trong lĩnh vực này.
+          </p>
+          <a href="https://share4happy.com/" target="_blank" rel="noopener noreferrer" class="news-empty-cta">
+            <span>Ghé thăm blog của chúng tôi</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+
+        <!-- News Grid (Sẽ hiển thị khi có tin tức, hiện tại ẩn) -->
+        <div class="news-grid" style="display: none;">
+          <!-- News Card 1 (Template) -->
+          <article class="news-card">
+            <div class="news-thumb">
+              <img src="./asset/images/placeholder-news.jpg" alt="Tiêu đề tin tức" class="news-thumb-img">
+              <span class="news-badge">In 3D</span>
+            </div>
+            <div class="news-content">
+              <div class="news-meta">
+                <span class="news-date">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                  </svg>
+                  15/01/2026
+                </span>
+                <span class="news-author">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                  Admin
+                </span>
+              </div>
+              <h3 class="news-title">Hướng dẫn chọn vật liệu in 3D phù hợp cho từng dự án</h3>
+              <p class="news-excerpt">
+                Tìm hiểu đặc tính của từng loại nhựa in 3D như PLA, PETG, ABS và TPU để chọn được vật liệu tốt nhất cho
+                sản phẩm của bạn...
+              </p>
+              <a href="#" class="news-read-more">
+                Đọc tiếp
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                  stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </a>
+            </div>
+          </article>
+        </div>
+
+        <!-- CTA để xem thêm tin tức (Hiển thị khi có tin tức) -->
+        <div class="news-cta-wrapper" style="display: none;">
+          <a href="https://share4happy.com/" target="_blank" rel="noopener noreferrer" class="btn-news-more">
+            <span>Xem tất cả tin tức</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer id="footer" class="site-footer" aria-label="Footer Print 3D Studio">
+    <div class="container footer-container">
+      <div class="footer-main">
+        <!-- Left: Logo & Contact Info -->
+        <div class="footer-brand-info">
+          <a href="#hero" class="footer-logo-link" aria-label="Trang chủ Print 3D Studio">
+            <img src="./asset/icons/logo-2.png" alt="Print 3D Studio White Logo" class="footer-logo-img" width="100"
+              height="100">
+          </a>
+
+          <div class="footer-contact-details">
+            <p class="contact-line">
+              <strong class="contact-label">Địa chỉ:</strong>
+              <span class="contact-value">Số 10, Huỳnh Văn Nghệ, phường Trấn Biên, thành phố Đồng Nai</span>
+            </p>
+            <p class="contact-line">
+              <strong class="contact-label">Số điện thoại:</strong>
+              <a href="tel:0372517173" class="contact-value contact-link">037 251 7173</a>
+            </p>
+            <p class="contact-line">
+              <strong class="contact-label">Email:</strong>
+              <a href="mailto:locnguyen@share4happy.com"
+                class="contact-value contact-link">locnguyen@share4happy.com</a>
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Social Connections -->
+        <div class="footer-social-section">
+          <h3 class="social-title">Kết nối</h3>
+          <div class="social-icons-row">
+            <!-- Facebook -->
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="social-icon-btn"
+              aria-label="Facebook">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="#0066ff">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </a>
+
+            <!-- Chat / Zalo / Messenger -->
+            <a href="https://zalo.me/0372517173" target="_blank" rel="noopener noreferrer" class="social-icon-btn"
+              aria-label="Nhắn tin Zalo">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+                </path>
+                <circle cx="9" cy="11.5" r="1" fill="#0066ff"></circle>
+                <circle cx="12" cy="11.5" r="1" fill="#0066ff"></circle>
+                <circle cx="15" cy="11.5" r="1" fill="#0066ff"></circle>
+              </svg>
+            </a>
+
+            <!-- Shopee -->
+            <a href="https://shopee.vn" target="_blank" rel="noopener noreferrer" class="social-icon-btn"
+              aria-label="Shopee Store">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0066ff" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+                <text x="12" y="17" font-size="7" font-weight="900" fill="#0066ff" stroke="none" text-anchor="middle"
+                  font-family="system-ui, sans-serif">S</text>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Divider & Bottom Copyright -->
+      <div class="footer-bottom">
+        <p class="copyright-text">&copy; 2026 Print 3D. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================== CONSULTATION & QUOTE MODAL ==================== -->
+  <div class="modal" id="quote-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-hidden="true">
+    <div class="modal-overlay" data-close="true"></div>
+    <div class="modal-dialog">
+      <button type="button" class="modal-close-btn" data-close="true" aria-label="Đóng cửa sổ">
+        &times;
+      </button>
+      <div class="modal-header">
+        <span class="section-badge" style="margin-bottom: 8px;">TƯ VẤN &amp; BÁO GIÁ</span>
+        <h3 id="modalTitle" style="font-size: 1.5rem; font-weight: 800; color: #0b0f19; margin-bottom: 8px;">
+          Nhận Báo Giá In 3D Nhanh
+        </h3>
+        <p style="font-size: 0.9rem; color: #64748b; margin-bottom: 24px;">
+          Gửi thông tin mẫu hoặc yêu cầu của bạn, Print 3D Studio sẽ liên hệ tư vấn phương án tối ưu nhất.
+        </p>
+      </div>
+
+      <form class="modal-form" id="quoteForm">
+        <div style="margin-bottom: 16px;">
+          <label for="customerName"
+            style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; color: #1e293b;">Họ và tên
+            *</label>
+          <input type="text" id="customerName" name="name" required placeholder="Ví dụ: Nguyễn Văn A"
+            style="width: 100%; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 0.95rem; outline: none;">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label for="customerPhone"
+            style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; color: #1e293b;">Số điện
+            thoại / Zalo *</label>
+          <input type="tel" id="customerPhone" name="phone" required placeholder="Ví dụ: 037 251 7173"
+            style="width: 100%; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 0.95rem; outline: none;">
+        </div>
+
+        <div style="margin-bottom: 16px;">
+          <label for="materialChoice"
+            style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; color: #1e293b;">Nhu cầu
+            vật liệu</label>
+          <select id="materialChoice" name="material"
+            style="width: 100%; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 0.95rem; outline: none; background-color: #fff;">
+            <option value="Tư vấn giúp tôi">Chưa rõ (Cần tư vấn thêm)</option>
+            <option value="PLA">PLA (Mô hình, trang trí)</option>
+            <option value="PETG">PETG (Bền, dẻo, chịu lực)</option>
+            <option value="PETG-CF">PETG-CF (Cứng, sợi carbon cao cấp)</option>
+            <option value="ABS">ABS (Chịu nhiệt, cơ tính cao)</option>
+            <option value="TPU 95A">TPU 95A (Dẻo, cao su đàn hồi)</option>
+          </select>
+        </div>
+
+        <div style="margin-bottom: 24px;">
+          <label for="projectNote"
+            style="display: block; font-size: 0.88rem; font-weight: 700; margin-bottom: 6px; color: #1e293b;">Ghi chú
+            hoặc link file 3D (nếu có)</label>
+          <textarea id="projectNote" name="note" rows="3"
+            placeholder="Kích thước mong muốn, link Google Drive file STL/STEP..."
+            style="width: 100%; padding: 12px 16px; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 0.95rem; outline: none; resize: vertical;"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width: 100%; font-size: 1rem; padding: 16px;">
+          GỬI YÊU CẦU BÁO GIÁ NGAY &rarr;
+        </button>
+
+        <div id="formSuccessMsg"
+          style="display: none; margin-top: 16px; padding: 12px; background: #ecfdf5; border: 1px solid #10b981; border-radius: 8px; color: #065f46; font-size: 0.9rem; text-align: center; font-weight: 600;">
+          Cảm ơn bạn! Yêu cầu đã được gửi thành công. Chúng tôi sẽ liên hệ trong ít phút.
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main JavaScript -->
+  <script type="module" src="./js/main.js"></script>
+</body>
+
+</html>

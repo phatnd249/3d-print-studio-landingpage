@@ -1,0 +1,145 @@
+/**
+ * Section: FOOTER
+ * Tái hiện chính xác Footer từ nửa dưới hình 5
+ */
+.site-footer {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  padding-top: 60px;
+  padding-bottom: 24px;
+}
+
+.footer-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  padding-bottom: 48px;
+}
+
+/* Brand & Contact */
+.footer-brand-info {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  max-width: 750px;
+}
+
+.footer-logo-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.footer-logo-img {
+  width: 120px;
+  height: auto;
+  object-fit: contain;
+}
+
+.footer-contact-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.contact-line {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+.contact-label {
+  font-weight: 800;
+  margin-right: 6px;
+}
+
+.contact-value {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.contact-link:hover {
+  text-decoration: underline;
+  color: #ffffff;
+}
+
+/* Social Section */
+.footer-social-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.social-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.social-icons-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.social-icon-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  background-color: #ffffff;
+  color: var(--color-primary);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.social-icon-btn:hover {
+  transform: translateY(-4px) scale(1.08);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+}
+
+.social-icon-btn svg {
+  transition: transform var(--transition-fast);
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 24px;
+  text-align: center;
+}
+
+.copyright-text {
+  font-size: 0.88rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Responsive Footer */
+@media (max-width: 900px) {
+  .footer-main {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 36px;
+  }
+
+  .footer-social-section {
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .footer-brand-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .footer-logo-img {
+    width: 96px;
+  }
+}
