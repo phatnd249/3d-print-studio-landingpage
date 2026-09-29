@@ -56,7 +56,6 @@ function renderNewsCard(post) {
     <article class="news-card">
       <div class="news-thumb">
         <img src="${featuredImage}" alt="${title}" class="news-thumb-img" loading="lazy">
-        <span class="news-badge">In 3D</span>
       </div>
       <div class="news-content">
         <div class="news-meta">
