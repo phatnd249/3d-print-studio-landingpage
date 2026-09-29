@@ -1,171 +1,61 @@
-/**
- * News/Blog Section - Fetch từ share4happy.com API
- */
+// ============================================================
+// NEWS SECTION - WordPress API Integration
+// ============================================================
 
-// Configuration
 const NEWS_CONFIG = {
   apiUrl: 'https://share4happy.com/wp-json/wp/v2/posts',
-  categoryId: 158, // Testing category 158
-  perPage: 6,
-  timeout: 10000 // 10 seconds
+  perPage: 5,
+  blogUrl: 'https://share4happy.com'
 };
 
 /**
- * Fetch news từ WordPress REST API
+ * Format ngày tháng tiếng Việt
+ * @param {string} dateString - ISO date string
+ * @returns {string} - Formatted date (dd/mm/yyyy)
  */
-async function fetchNews() {
-  try {
-    const url = `${NEWS_CONFIG.apiUrl}?categories=${NEWS_CONFIG.categoryId}&_embed&per_page=${NEWS_CONFIG.perPage}`;
-
-    console.log('Fetching news from:', url);
-
-    // Fetch với timeout
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), NEWS_CONFIG.timeout);
-
-    const response = await fetch(url, {
-      signal: controller.signal,
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
-
-    clearTimeout(timeoutId);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const posts = await response.json();
-    console.log('Fetched posts:', posts);
-
-    return posts;
-
-  } catch (error) {
-    console.error('Error fetching news:', error);
-    throw error;
-  }
+function formatVietnameseDate(dateString) {
+  const date = new Date(dateString);
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${day}/${month}/${year}`;
 }
 
 /**
- * Extract featured image từ _embedded data
+ * Tạo excerpt ngắn gọn từ content
+ * @param {string} content - HTML content
+ * @param {number} maxLength - Maximum length
+ * @returns {string} - Plain text excerpt
  */
-function getFeaturedImage(post) {
-  try {
-    if (post._embedded && post._embedded['wp:featuredmedia'] && post._embedded['wp:featuredmedia'][0]) {
-      const media = post._embedded['wp:featuredmedia'][0];
+function createExcerpt(content, maxLength = 150) {
+  const div = document.createElement('div');
+  div.innerHTML = content;
+  const text = div.textContent || div.innerText || '';
 
-      // Ưu tiên sizes theo thứ tự: medium_large > medium > full
-      if (media.media_details && media.media_details.sizes) {
-        const sizes = media.media_details.sizes;
-        if (sizes.medium_large) return sizes.medium_large.source_url;
-        if (sizes.medium) return sizes.medium.source_url;
-      }
-
-      return media.source_url || '';
-    }
-  } catch (error) {
-    console.warn('Error extracting featured image:', error);
-  }
-
-  return 'https://via.placeholder.com/400x300?text=No+Image';
+  if (text.length <= maxLength) return text;
+  return text.substring(0, maxLength).trim() + '...';
 }
 
 /**
- * Extract category name từ _embedded data
- */
-function getCategoryName(post) {
-  try {
-    if (post._embedded && post._embedded['wp:term'] && post._embedded['wp:term'][0]) {
-      const categories = post._embedded['wp:term'][0];
-      if (categories.length > 0) {
-        return categories[0].name;
-      }
-    }
-  } catch (error) {
-    console.warn('Error extracting category:', error);
-  }
-
-  return 'Tin tức';
-}
-
-/**
- * Extract author name từ _embedded data
- */
-function getAuthorName(post) {
-  try {
-    if (post._embedded && post._embedded.author && post._embedded.author[0]) {
-      return post._embedded.author[0].name;
-    }
-  } catch (error) {
-    console.warn('Error extracting author:', error);
-  }
-
-  return 'Admin';
-}
-
-/**
- * Format date theo định dạng Việt Nam
- */
-function formatDate(dateString) {
-  try {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('vi-VN', {
-      day: '2-digit',
-      month: '2-digit',
-      year: 'numeric'
-    });
-  } catch (error) {
-    console.warn('Error formatting date:', error);
-    return '';
-  }
-}
-
-/**
- * Decode HTML entities
- */
-function decodeHtml(html) {
-  const txt = document.createElement('textarea');
-  txt.innerHTML = html;
-  return txt.value;
-}
-
-/**
- * Strip HTML tags và giới hạn độ dài
- */
-function getExcerpt(content, maxLength = 150) {
-  // Remove HTML tags
-  const stripped = content.replace(/<[^>]*>/g, '');
-
-  // Decode HTML entities
-  const decoded = decodeHtml(stripped);
-
-  // Trim và limit length
-  const trimmed = decoded.trim();
-
-  if (trimmed.length <= maxLength) {
-    return trimmed;
-  }
-
-  return trimmed.substring(0, maxLength).trim() + '...';
-}
-
-/**
- * Render một news card
+ * Render news card
+ * @param {Object} post - WordPress post object
+ * @returns {string} - HTML string
  */
 function renderNewsCard(post) {
-  const featuredImage = getFeaturedImage(post);
-  const category = getCategoryName(post);
-  const author = getAuthorName(post);
-  const date = formatDate(post.date);
-  const title = decodeHtml(post.title.rendered);
-  const excerpt = post.excerpt ? getExcerpt(post.excerpt.rendered) : '';
+  const featuredImage = post.featured_image_url || './asset/images/placeholder-news.jpg';
+  const title = post.title.rendered;
+  const excerpt = post.excerpt?.rendered
+    ? createExcerpt(post.excerpt.rendered, 120)
+    : createExcerpt(post.content.rendered, 120);
+  const date = formatVietnameseDate(post.date);
+  const author = post.author_name || 'Admin';
+  const postUrl = post.link;
 
   return `
     <article class="news-card">
       <div class="news-thumb">
         <img src="${featuredImage}" alt="${title}" class="news-thumb-img" loading="lazy">
-        <span class="news-badge">${category}</span>
+        <span class="news-badge">In 3D</span>
       </div>
       <div class="news-content">
         <div class="news-meta">
@@ -188,7 +78,7 @@ function renderNewsCard(post) {
         </div>
         <h3 class="news-title">${title}</h3>
         <p class="news-excerpt">${excerpt}</p>
-        <a href="${post.link}" target="_blank" rel="noopener noreferrer" class="news-read-more">
+        <a href="${postUrl}" target="_blank" rel="noopener noreferrer" class="news-read-more">
           Đọc tiếp
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -201,76 +91,110 @@ function renderNewsCard(post) {
 }
 
 /**
- * Render news grid với posts
+ * Fetch và hiển thị tin tức từ WordPress API
  */
-function renderNewsGrid(posts) {
+async function loadNewsFromWordPress() {
   const newsGrid = document.querySelector('.news-grid');
-  const newsEmptyState = document.querySelector('.news-empty-state');
-  const newsCtaWrapper = document.querySelector('.news-cta-wrapper');
+  const emptyState = document.querySelector('.news-empty-state');
+  const ctaWrapper = document.querySelector('.news-cta-wrapper');
 
-  if (!newsGrid) {
-    console.error('News grid element not found');
+  if (!newsGrid || !emptyState) {
+    console.error('News section elements not found');
     return;
   }
 
-  if (posts && posts.length > 0) {
-    // Có bài viết: hiển thị grid
-    newsGrid.innerHTML = posts.map(post => renderNewsCard(post)).join('');
-    newsGrid.style.display = 'grid';
-
-    // Ẩn empty state
-    if (newsEmptyState) {
-      newsEmptyState.style.display = 'none';
-    }
-
-    // Hiển thị CTA "Xem tất cả"
-    if (newsCtaWrapper) {
-      newsCtaWrapper.style.display = 'block';
-    }
-
-    console.log(`Rendered ${posts.length} news posts`);
-  } else {
-    // Không có bài viết: hiển thị empty state
-    if (newsEmptyState) {
-      newsEmptyState.style.display = 'block';
-    }
-
-    newsGrid.style.display = 'none';
-
-    if (newsCtaWrapper) {
-      newsCtaWrapper.style.display = 'none';
-    }
-
-    console.log('No news posts found - showing empty state');
-  }
-}
-
-/**
- * Initialize news section
- */
-async function initNews() {
-  console.log('Initializing news section...');
-
   try {
-    const posts = await fetchNews();
-    renderNewsGrid(posts);
+    // Hiển thị loading state
+    emptyState.innerHTML = `
+      <div class="news-loading">
+        <div class="loading-spinner"></div>
+        <p>Đang tải tin tức...</p>
+      </div>
+    `;
+
+    // Fetch posts với featured media và author
+    const response = await fetch(
+      `${NEWS_CONFIG.apiUrl}?per_page=${NEWS_CONFIG.perPage}&_embed`
+    );
+
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+
+    const posts = await response.json();
+
+    if (posts.length === 0) {
+      // Giữ nguyên empty state nếu không có bài viết
+      emptyState.innerHTML = `
+        <div class="news-empty-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+          </svg>
+        </div>
+        <h3 class="news-empty-title">Nội dung đang được cập nhật</h3>
+        <p class="news-empty-text">
+          Chúng tôi đang chuẩn bị những bài viết hữu ích về công nghệ in 3D.
+        </p>
+      `;
+      return;
+    }
+
+    // Xử lý data với featured image và author
+    const processedPosts = posts.map(post => ({
+      ...post,
+      featured_image_url: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null,
+      author_name: post._embedded?.author?.[0]?.name || 'Admin'
+    }));
+
+    // Render news cards
+    newsGrid.innerHTML = processedPosts.map(post => renderNewsCard(post)).join('');
+
+    // Ẩn empty state và hiển thị grid + CTA
+    emptyState.style.display = 'none';
+    newsGrid.style.display = 'flex';
+    if (ctaWrapper) {
+      ctaWrapper.style.display = 'flex';
+    }
+
+    // Thêm class để hiển thị scroll indicator nếu content overflow
+    setTimeout(() => {
+      const container = document.querySelector('.news-container');
+      if (container && newsGrid.scrollWidth > newsGrid.clientWidth) {
+        container.classList.add('has-scroll');
+      }
+    }, 100);
+
   } catch (error) {
-    console.error('Failed to initialize news:', error);
-    // Giữ nguyên empty state khi có lỗi
-    renderNewsGrid([]);
+    console.error('Error loading news:', error);
+
+    // Hiển thị error state
+    emptyState.innerHTML = `
+      <div class="news-empty-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+      </div>
+      <h3 class="news-empty-title">Không thể tải tin tức</h3>
+      <p class="news-empty-text">
+        Vui lòng thử lại sau hoặc truy cập trực tiếp blog của chúng tôi.
+      </p>
+      <a href="${NEWS_CONFIG.blogUrl}" target="_blank" rel="noopener noreferrer" class="news-empty-cta">
+        <span>Ghé thăm blog</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </a>
+    `;
   }
 }
 
-// Export functions
-window.NewsModule = {
-  init: initNews,
-  fetch: fetchNews,
-  render: renderNewsGrid
-};
-
-// Auto-initialize when DOM is ready
+// Initialize when DOM is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initNews);
+  document.addEventListener('DOMContentLoaded', loadNewsFromWordPress);
 } else {
-  initNews();
+  loadNewsFromWordPress();
 }
