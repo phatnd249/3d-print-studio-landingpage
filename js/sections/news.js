@@ -164,6 +164,7 @@ export async function initNews() {
     newsGrid.style.display = 'flex';
     if (ctaWrapper) {
       ctaWrapper.style.display = 'flex';
+      ctaWrapper.style.justifyContent = 'center';
     }
 
     // Thêm class để hiển thị scroll indicator nếu content overflow

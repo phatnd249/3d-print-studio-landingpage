@@ -317,8 +317,12 @@
 
 /* CTA Button để xem thêm */
 .news-cta-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   margin-top: 48px;
+  width: 100%;
 }
 
 .btn-news-more {
