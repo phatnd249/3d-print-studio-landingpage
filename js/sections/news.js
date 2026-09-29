@@ -4,6 +4,7 @@
 
 const NEWS_CONFIG = {
   apiUrl: 'https://share4happy.com/wp-json/wp/v2/posts',
+  categoryId: 158,
   perPage: 5,
   blogUrl: 'https://share4happy.com'
 };
@@ -112,9 +113,9 @@ async function loadNewsFromWordPress() {
       </div>
     `;
 
-    // Fetch posts với featured media và author
+    // Fetch posts với featured media và author từ category 158
     const response = await fetch(
-      `${NEWS_CONFIG.apiUrl}?per_page=${NEWS_CONFIG.perPage}&_embed`
+      `${NEWS_CONFIG.apiUrl}?categories=${NEWS_CONFIG.categoryId}&per_page=${NEWS_CONFIG.perPage}&_embed`
     );
 
     if (!response.ok) {
