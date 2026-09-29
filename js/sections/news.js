@@ -42,7 +42,7 @@ function createExcerpt(content, maxLength = 150) {
  * @returns {string} - HTML string
  */
 function renderNewsCard(post) {
-  const featuredImage = post.featured_image_url || './asset/images/placeholder-news.jpg';
+  const featuredImage = post.featured_image_url || './asset/images/gallery-figure.jpg';
   const title = post.title.rendered;
   const excerpt = post.excerpt?.rendered
     ? createExcerpt(post.excerpt.rendered, 120)

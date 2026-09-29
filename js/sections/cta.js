@@ -1,7 +1,7 @@
 ﻿/**
  * Section Controller: CTA (Skeleton)
  */
-export function initCta() {
+export function initCTA() {
   // Skeleton: logic to be implemented
 }
 
