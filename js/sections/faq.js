@@ -1,7 +1,7 @@
-﻿/**
+/**
  * Section Controller: FAQ (Skeleton)
  */
-export function initFaq() {
+export function initFAQ() {
   // Skeleton: logic to be implemented
 }
 

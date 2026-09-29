@@ -13,7 +13,7 @@ import { initOverview } from './sections/overview.js';
 import { initFAQ } from './sections/faq.js';
 import { initCTA } from './sections/cta.js';
 import { initFooter } from './sections/footer.js';
-import './sections/news.js'; // News section auto-initializes
+import { initNews } from './sections/news.js';
 
 // Import components
 import { initModal } from './components/modal.js';
@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initOverview();
   initFAQ();
   initCTA();
+  initNews();
   initFooter();
 
   // Initialize components

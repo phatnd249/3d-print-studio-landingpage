@@ -4,7 +4,7 @@
 
 const NEWS_CONFIG = {
   apiUrl: 'https://share4happy.com/wp-json/wp/v2/posts',
-  categoryId: 158,
+  categoryId: 208, // Chuyên mục "3D Print Studio"
   perPage: 5,
   blogUrl: 'https://share4happy.com'
 };
@@ -91,10 +91,14 @@ function renderNewsCard(post) {
   `;
 }
 
+let isNewsLoaded = false;
+
 /**
  * Fetch và hiển thị tin tức từ WordPress API
  */
-async function loadNewsFromWordPress() {
+export async function initNews() {
+  if (isNewsLoaded) return;
+  
   const newsGrid = document.querySelector('.news-grid');
   const emptyState = document.querySelector('.news-empty-state');
   const ctaWrapper = document.querySelector('.news-cta-wrapper');
@@ -103,6 +107,8 @@ async function loadNewsFromWordPress() {
     console.error('News section elements not found');
     return;
   }
+
+  isNewsLoaded = true;
 
   try {
     // Hiển thị loading state
@@ -113,10 +119,12 @@ async function loadNewsFromWordPress() {
       </div>
     `;
 
-    // Fetch posts với featured media và author từ category 158
-    const response = await fetch(
-      `${NEWS_CONFIG.apiUrl}?categories=${NEWS_CONFIG.categoryId}&per_page=${NEWS_CONFIG.perPage}&_embed`
-    );
+    // Fetch posts với featured media và author (nếu có categoryId thì lọc theo category, ngược lại lấy bài mới nhất)
+    const fetchUrl = NEWS_CONFIG.categoryId
+      ? `${NEWS_CONFIG.apiUrl}?categories=${NEWS_CONFIG.categoryId}&per_page=${NEWS_CONFIG.perPage}&_embed`
+      : `${NEWS_CONFIG.apiUrl}?per_page=${NEWS_CONFIG.perPage}&_embed`;
+
+    const response = await fetch(fetchUrl);
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -144,7 +152,7 @@ async function loadNewsFromWordPress() {
     // Xử lý data với featured image và author
     const processedPosts = posts.map(post => ({
       ...post,
-      featured_image_url: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || null,
+      featured_image_url: post._embedded?.['wp:featuredmedia']?.[0]?.source_url || './asset/images/gallery-figure.jpg',
       author_name: post._embedded?.author?.[0]?.name || 'Admin'
     }));
 
@@ -168,6 +176,7 @@ async function loadNewsFromWordPress() {
 
   } catch (error) {
     console.error('Error loading news:', error);
+    isNewsLoaded = false;
 
     // Hiển thị error state
     emptyState.innerHTML = `
@@ -193,9 +202,9 @@ async function loadNewsFromWordPress() {
   }
 }
 
-// Initialize when DOM is ready
+// Auto-initialize when DOM is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', loadNewsFromWordPress);
+  document.addEventListener('DOMContentLoaded', initNews);
 } else {
-  loadNewsFromWordPress();
+  initNews();
 }
