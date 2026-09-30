@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <mask id="shopeeBadgeMask">
+      <rect width="512" height="512" fill="#ffffff" />
+      
+      <!-- Bag Body Cutout: Trapezoid shopping bag -->
+      <path d="M 140 185 L 372 185 L 398 385 C 400 408 382 426 358 426 L 154 426 C 130 426 112 408 114 385 Z" fill="#000000" />
+      
+      <!-- Handle Cutout Loop: U-arch strap -->
+      <path d="M 200 185 L 200 140 C 200 102 225 78 256 78 C 287 78 312 102 312 140 L 312 185 L 284 185 L 284 140 C 284 118 272 104 256 104 C 240 104 228 118 228 140 L 228 185 Z" fill="#000000" />
+    </mask>
+  </defs>
+
+  <!-- Circular White Badge -->
+  <circle cx="256" cy="256" r="256" fill="#ffffff" mask="url(#shopeeBadgeMask)" />
+
+  <!-- Bold White 'S' in center of cutout bag -->
+  <path d="M 256 235 C 228 235 208 248 208 272 C 208 312 300 302 300 342 C 300 360 282 372 256 372 C 230 372 214 358 212 338 L 180 338 C 182 374 214 400 256 400 C 300 400 332 374 332 342 C 332 300 240 310 240 272 C 240 256 252 247 268 247 C 286 247 300 256 304 274 L 336 274 C 334 245 304 235 282 235 Z" fill="#ffffff" />
+</svg>

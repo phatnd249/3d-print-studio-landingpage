@@ -11,7 +11,7 @@ export const SITE_METADATA = {
     email: 'locnguyen@share4happy.com'
   },
   social: {
-    facebook: 'https://facebook.com',
+    facebook: 'https://www.facebook.com/share/19TBLiMFEG/?mibextid=wwXIfr',
     zalo: 'https://zalo.me/0372517173',
     shopee: 'https://shopee.vn'
   }

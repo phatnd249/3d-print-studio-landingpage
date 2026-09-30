@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Mask to prevent back bubble from rendering inside front bubble -->
+    <mask id="chatFrontMask">
+      <rect width="512" height="512" fill="#ffffff" />
+      <path d="M 180 75 C 270 75 340 142 340 225 C 340 305 275 372 188 375 L 140 412 C 128 422 108 412 112 396 L 118 358 C 45 328 15 280 15 225 C 15 142 88 75 180 75 Z" fill="#000000" />
+    </mask>
+  </defs>
+
+  <!-- Back Bubble -->
+  <g mask="url(#chatFrontMask)">
+    <!-- Back bubble outline with tail pointing down-right -->
+    <path d="M 285 92 C 375 92 448 155 448 232 C 448 274 430 312 400 338 L 418 392 C 423 408 406 420 393 411 L 340 372 C 322 376 304 378 285 378 C 275 378 265 377 255 375"
+          fill="none" stroke="#ffffff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" />
+  </g>
+
+  <!-- Front Bubble Body with tail pointing down-left -->
+  <path d="M 180 88 C 262 88 328 150 328 225 C 328 300 262 362 180 362 C 158 362 136 356 118 346 L 68 385 C 58 393 44 384 48 372 L 58 332 C 36 304 24 266 24 225 C 24 150 94 88 180 88 Z"
+        fill="none" stroke="#ffffff" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- 3 Dots in Front Bubble -->
+  <circle cx="120" cy="225" r="17" fill="#ffffff" />
+  <circle cx="180" cy="225" r="17" fill="#ffffff" />
+  <circle cx="240" cy="225" r="17" fill="#ffffff" />
+</svg>

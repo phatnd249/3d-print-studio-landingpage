@@ -45,13 +45,14 @@ export function initModal() {
         successMsg.style.display = 'block';
       }
       setTimeout(() => {
+        window.open('https://www.facebook.com/share/19TBLiMFEG/?mibextid=wwXIfr', '_blank');
         const modal = quoteForm.closest('.modal');
         if (modal) {
           closeModal(modal);
           quoteForm.reset();
           if (successMsg) successMsg.style.display = 'none';
         }
-      }, 2500);
+      }, 1500);
     });
   }
 }
