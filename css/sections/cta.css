@@ -84,11 +84,13 @@
   }
 }
 
+.quote-form-centered,
 .quote-form-grid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 36px;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 36px auto 0 !important;
 }
 
 /* Left Column: Info & Value Props */
@@ -250,8 +252,10 @@
 /* Form Column: Form Terminal */
 .quote-form-col {
   display: flex;
+  justify-content: center;
   width: 100%;
-  max-width: 660px;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
 .quote-form-card {
@@ -260,6 +264,8 @@
   padding: 38px 40px;
   box-shadow: 0 16px 40px -10px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(226, 232, 240, 0.95);
   width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
   position: relative;
 }
 
