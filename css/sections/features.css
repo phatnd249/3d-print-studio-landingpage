@@ -82,24 +82,65 @@
 }
 
 @media (max-width: 768px) {
+  .section-features {
+    padding-top: 14px;
+    padding-bottom: 24px;
+  }
+
   .why-us-banner {
-    padding: 36px 20px;
+    padding: 28px 16px;
     border-radius: 20px;
   }
 
+  .why-us-title {
+    font-size: 1.45rem;
+    margin-bottom: 20px;
+  }
+
   .why-us-card-wrapper {
-    padding: 24px 16px;
+    padding: 20px 14px;
   }
 
   .why-us-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 28px 16px;
+    gap: 20px 14px;
   }
 }
 
 @media (max-width: 480px) {
+  .why-us-banner {
+    padding: 22px 12px;
+    border-radius: 16px;
+  }
+
+  .why-us-title {
+    font-size: 1.3rem;
+    margin-bottom: 16px;
+  }
+
+  .why-us-card-wrapper {
+    padding: 16px 10px;
+    border-radius: 14px;
+  }
+
   .why-us-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px 8px;
+  }
+
+  .why-us-icon {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 6px;
+  }
+
+  .why-us-heading {
+    font-size: 0.88rem;
+    margin-bottom: 4px;
+  }
+
+  .why-us-text {
+    font-size: 0.75rem;
+    line-height: 1.4;
   }
 }

@@ -15,12 +15,9 @@ export const SITE_METADATA = {
     zalo: 'https://zalo.me/0372517173',
     shopee: 'https://shopee.vn/locprri'
   },
-  quoteForm: '#quote-form',
-  googleSheet: {
-    url: 'https://docs.google.com/spreadsheets/d/1p4HGXK7mepMIxt9l2TpughyTzt762zQnVgcLwzGlalg/edit?gid=0#gid=0',
-    id: '1p4HGXK7mepMIxt9l2TpughyTzt762zQnVgcLwzGlalg',
-    webhookUrl: 'https://script.google.com/macros/s/AKfycbwSjUh2fPMloUnloNes4bxF7pEhEFy9nHGjktMOEHFAtRnnzVcpFBkClM4PO0426t1z/exec'
-  }
+  quoteForm: '#quote-form'
+  // KHÔNG lưu Google Sheet ID / webhook URL trong mã nguồn public.
+  // Xem js/app.js (LEAD_ENDPOINT) và SECURITY.md.
 };
 
 export const NAV_LINKS = [

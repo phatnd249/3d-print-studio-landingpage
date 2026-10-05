@@ -365,14 +365,32 @@
   }
 }
 
+@media (max-width: 768px) {
+  .section-news {
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+}
+
 @media (max-width: 640px) {
+  .section-news {
+    padding-top: 28px;
+    padding-bottom: 30px;
+  }
+
+  .news-grid {
+    margin-top: 14px;
+    gap: 16px;
+    padding-bottom: 10px;
+  }
+
   .news-card {
-    min-width: 280px;
-    max-width: 280px;
+    min-width: 270px;
+    max-width: 270px;
   }
 
   .news-thumb {
-    height: 180px;
+    height: 165px;
   }
 
   .news-content {

@@ -23,15 +23,60 @@ function formatVietnameseDate(dateString) {
 }
 
 /**
+ * Escape HTML trước khi chèn vào template string
+ * @param {*} value
+ * @returns {string}
+ */
+function escapeHtml(value) {
+  return String(value == null ? '' : value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+/**
+ * Chỉ cho phép URL http(s) từ domain tin cậy, tránh javascript:/data: và domain lạ
+ * @param {string} rawUrl
+ * @param {string[]} allowedHosts
+ * @param {string} fallback
+ * @returns {string}
+ */
+function safeUrl(rawUrl, allowedHosts, fallback) {
+  try {
+    const url = new URL(String(rawUrl), window.location.href);
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return fallback;
+    const hostOk = allowedHosts.some(host => url.hostname === host || url.hostname.endsWith('.' + host));
+    return hostOk ? url.href : fallback;
+  } catch (e) {
+    return fallback;
+  }
+}
+
+/**
+ * Bóc tag HTML của nội dung WordPress mà không kích hoạt tải ảnh / script.
+ * DOMParser tạo document "inert" nên <script> và onerror= không chạy.
+ * @param {string} content - HTML content
+ * @returns {string} - Plain text
+ */
+function htmlToPlainText(content) {
+  try {
+    const doc = new DOMParser().parseFromString(String(content || ''), 'text/html');
+    return (doc.body && (doc.body.textContent || '')) || '';
+  } catch (e) {
+    return '';
+  }
+}
+
+/**
  * Tạo excerpt ngắn gọn từ content
  * @param {string} content - HTML content
  * @param {number} maxLength - Maximum length
  * @returns {string} - Plain text excerpt
  */
 function createExcerpt(content, maxLength = 150) {
-  const div = document.createElement('div');
-  div.innerHTML = content;
-  const text = div.textContent || div.innerText || '';
+  const text = htmlToPlainText(content).replace(/\s+/g, ' ').trim();
 
   if (text.length <= maxLength) return text;
   return text.substring(0, maxLength).trim() + '...';
@@ -43,14 +88,17 @@ function createExcerpt(content, maxLength = 150) {
  * @returns {string} - HTML string
  */
 function renderNewsCard(post) {
-  const featuredImage = post.featured_image_url || './asset/images/gallery-figure.jpg';
-  const title = post.title.rendered;
-  const excerpt = post.excerpt?.rendered
-    ? createExcerpt(post.excerpt.rendered, 120)
-    : createExcerpt(post.content.rendered, 120);
-  const date = formatVietnameseDate(post.date);
-  const author = post.author_name || 'Admin';
-  const postUrl = post.link;
+  const allowedHosts = ['share4happy.com'];
+  const featuredImage = safeUrl(post.featured_image_url, [...allowedHosts, 'localhost'], './asset/images/gallery-figure.jpg');
+  const title = escapeHtml(htmlToPlainText(post.title && post.title.rendered));
+  const excerpt = escapeHtml(
+    post.excerpt?.rendered
+      ? createExcerpt(post.excerpt.rendered, 120)
+      : createExcerpt(post.content.rendered, 120)
+  );
+  const date = escapeHtml(formatVietnameseDate(post.date));
+  const author = escapeHtml(post.author_name || 'Admin');
+  const postUrl = safeUrl(post.link, allowedHosts, '#');
 
   return `
     <article class="news-card">

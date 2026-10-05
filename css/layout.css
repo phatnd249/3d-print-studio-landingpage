@@ -75,11 +75,44 @@
 
 @media (max-width: 768px) {
   .section {
-    padding-top: var(--spacing-2xl);
-    padding-bottom: var(--spacing-2xl);
+    padding-top: 36px;
+    padding-bottom: 36px;
   }
 
   .section-header {
-    margin-bottom: var(--spacing-2xl);
+    margin-bottom: 22px;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .section {
+    padding-top: 26px;
+    padding-bottom: 26px;
+  }
+
+  .section-header {
+    margin-bottom: 16px;
+  }
+
+  .section-title {
+    font-size: clamp(1.5rem, 6.8vw, 1.95rem);
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+
+  .section-badge {
+    font-size: 0.74rem;
+    padding: 3px 12px;
+    margin-bottom: 6px;
   }
 }

@@ -8,6 +8,47 @@
   <meta name="description"
     content="Print 3D Studio - Nhận in 3D theo mẫu có sẵn hoặc thiết kế theo yêu cầu. Hỗ trợ cá nhân, sinh viên, doanh nghiệp tại Biên Hòa - Đồng Nai.">
 
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://3dprintstudio.share4happy.com/">
+
+  <!-- Open Graph / Facebook / Zalo -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Print 3D Studio">
+  <meta property="og:url" content="https://3dprintstudio.share4happy.com/">
+  <meta property="og:title" content="Print 3D Studio - Dịch Vụ In 3D & Tạo Mẫu Nhanh Tại Biên Hòa">
+  <meta property="og:description"
+    content="Nhận in 3D theo mẫu có sẵn hoặc thiết kế theo yêu cầu. Gia công nhanh, chính xác, uy tín tại Biên Hòa - Đồng Nai.">
+  <meta property="og:image" content="https://3dprintstudio.share4happy.com/asset/images/hero.png">
+  <meta property="og:locale" content="vi_VN">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Print 3D Studio - Dịch Vụ In 3D & Tạo Mẫu Nhanh Tại Biên Hòa">
+  <meta name="twitter:description"
+    content="Nhận in 3D theo mẫu có sẵn hoặc thiết kế theo yêu cầu. Gia công nhanh, chính xác, uy tín tại Biên Hòa - Đồng Nai.">
+  <meta name="twitter:image" content="https://3dprintstudio.share4happy.com/asset/images/hero.png">
+
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Print 3D Studio",
+    "image": "https://3dprintstudio.share4happy.com/asset/images/logo-header.png",
+    "url": "https://3dprintstudio.share4happy.com/",
+    "telephone": "0372517173",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "10 Huỳnh Văn Nghệ",
+      "addressLocality": "Biên Hòa",
+      "addressRegion": "Đồng Nai",
+      "addressCountry": "VN"
+    },
+    "description": "Dịch vụ in 3D FDM / SLA, quét 3D và thiết kế mô hình theo yêu cầu tại Biên Hòa - Đồng Nai.",
+    "priceRange": "$$"
+  }
+  </script>
+
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="./asset/images/logo-header.png">
 
@@ -709,7 +750,7 @@
             <div class="quote-form-card" id="quoteFormWrapper">
               
               <!-- STATE 1: FORM CHƯA ĐIỀN -->
-              <form class="interactive-quote-form" id="leadCaptureForm" onsubmit="return false;" novalidate>
+              <form class="interactive-quote-form" id="leadCaptureForm" novalidate>
                 <div class="form-card-header">
                   <h3 class="form-card-title">Phiếu Đăng Ký Báo Giá</h3>
                   <p class="form-card-desc">Điền thông tin bên dưới để xưởng tính toán giá và liên hệ hỗ trợ bạn.</p>
@@ -725,7 +766,7 @@
                       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                       <circle cx="12" cy="7" r="4"></circle>
                     </svg>
-                    <input type="text" id="leadFullName" name="fullName" class="form-input" placeholder="Ví dụ: Nguyễn Văn A" required>
+                    <input type="text" id="leadFullName" name="fullName" class="form-input" placeholder="Ví dụ: Nguyễn Văn A" maxlength="60" autocomplete="name" required>
                   </div>
                   <span class="field-error-msg" id="error-leadFullName">Vui lòng nhập họ và tên của bạn</span>
                 </div>
@@ -739,7 +780,7 @@
                     <svg class="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                       <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
                     </svg>
-                    <input type="tel" id="leadPhone" name="phone" class="form-input" placeholder="Ví dụ: 037 251 7173" required>
+                    <input type="tel" id="leadPhone" name="phone" class="form-input" placeholder="Ví dụ: 037 251 7173" maxlength="20" autocomplete="tel" required>
                   </div>
                   <span class="field-error-msg" id="error-leadPhone">Vui lòng nhập số điện thoại hợp lệ (10 số)</span>
                 </div>
@@ -754,7 +795,7 @@
                       <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                       <polyline points="22,6 12,13 2,6"></polyline>
                     </svg>
-                    <input type="email" id="leadEmail" name="email" class="form-input" placeholder="Ví dụ: contact@example.com" required>
+                    <input type="email" id="leadEmail" name="email" class="form-input" placeholder="Ví dụ: contact@example.com" maxlength="100" autocomplete="email" required>
                   </div>
                   <span class="field-error-msg" id="error-leadEmail">Vui lòng nhập địa chỉ email hợp lệ</span>
                 </div>
@@ -794,19 +835,45 @@
                         <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
                         <circle cx="12" cy="10" r="3"></circle>
                       </svg>
-                      <input type="text" id="leadAddress" name="address" class="region-address-input" placeholder="Phường/Xã, Quận/Huyện hoặc địa chỉ giao hàng (Tùy chọn)">
+                      <input type="text" id="leadAddress" name="address" class="region-address-input" placeholder="Phường/Xã, Quận/Huyện hoặc địa chỉ giao hàng (Tùy chọn)" maxlength="200" autocomplete="street-address">
                     </div>
                   </div>
                 </div>
 
+                <!-- Chống spam: honeypot (người dùng thật không thấy, bot tự động điền) -->
+                <div class="hp-field" aria-hidden="true">
+                  <label for="leadWebsite">Website</label>
+                  <input type="text" id="leadWebsite" name="website" tabindex="-1" autocomplete="off">
+                </div>
+
+                <!-- Đồng ý xử lý dữ liệu cá nhân -->
+                <div class="form-group consent-group">
+                  <label class="consent-check" for="leadConsent">
+                    <input type="checkbox" id="leadConsent" name="consent" value="yes">
+                    <span class="consent-check-text">
+                      Tôi đồng ý để Print 3D Studio lưu giữ và sử dụng thông tin này nhằm mục đích liên hệ, tư vấn và gửi báo giá.
+                    </span>
+                  </label>
+                  <p class="consent-policy">
+                    <button type="button" class="consent-link open-modal-btn" data-target="disclaimer-modal">Xem chính sách bảo mật thông tin</button>
+                  </p>
+                  <span class="field-error-msg" id="error-leadConsent">Vui lòng xác nhận đồng ý để tiếp tục</span>
+                </div>
+
                 <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary btn-submit-lead" id="submitLeadBtn">
-                  <span>GỬI THÔNG TIN &amp; KẾT NỐI FACEBOOK NGAY</span>
+                <button type="button" class="btn btn-primary btn-submit-lead" id="submitLeadBtn">
+                  <span>GỬI THÔNG TIN BÁO GIÁ</span>
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
                   </svg>
                 </button>
+
+                <div class="form-submit-error" id="leadSubmitError" role="alert" style="display: none;">
+                  <p>
+                    Chưa gửi được thông tin. Vui lòng kiểm tra kết nối mạng rồi bấm lại nút gửi, hoặc nhắn tin trực tiếp cho xưởng qua Facebook / Zalo 037 251 7173.
+                  </p>
+                </div>
 
               </form>
 
@@ -819,7 +886,7 @@
                 </div>
                 <h3 class="submitted-title">Thông Tin Đã Được Lưu Trữ!</h3>
                 <p class="submitted-greeting" id="submittedGreeting">
-                  Chào bạn <strong id="savedLeadName">...</strong>, yêu cầu báo giá của bạn đã được ghi nhận vào hệ thống.
+                  Cảm ơn bạn <strong id="savedLeadName">...</strong> đã cung cấp thông tin, thông tin của bạn đã được ghi nhận vào hệ thống.
                 </p>
 
                 <!-- Box tóm tắt thông tin đã lưu -->
@@ -841,6 +908,10 @@
                     <span class="info-val" id="savedValRegion">-</span>
                   </div>
                 </div>
+
+                <p class="saved-privacy-note" id="savedPrivacyNote">
+                  Vì lý do bảo mật, trình duyệt của bạn chỉ ghi nhớ rằng yêu cầu đã được gửi — không lưu số điện thoại, email hay địa chỉ trên máy.
+                </p>
 
                 <p class="submitted-cta-note">
                   Bạn không cần phải nhập lại thông tin. Hãy nhấn nút bên dưới để mở Facebook trao đổi trực tiếp hoặc gửi file 3D cho kỹ thuật viên:
@@ -1058,6 +1129,16 @@
             <h4>Báo giá &amp; Thời gian bàn giao</h4>
             <p>
               Bảng giá hiển thị trên website mang tính chất tham khảo cho mẫu tiêu chuẩn. Chi phí chính xác và thời gian gia công sẽ được chốt cụ thể sau khi kỹ thuật viên phân tích chi tiết file 3D (thể tích nhựa, mật độ in infill, kết cấu support và yêu cầu hậu kỳ bề mặt).
+            </p>
+          </div>
+        </div>
+
+        <div class="disclaimer-item">
+          <div class="disclaimer-item-num">06</div>
+          <div class="disclaimer-item-content">
+            <h4>Bảo mật thông tin khách hàng</h4>
+            <p>
+              Thông tin bạn gửi trong phiếu báo giá (họ tên, số điện thoại, email, khu vực) chỉ được sử dụng để liên hệ, tư vấn và gửi báo giá cho bạn. Chúng tôi không bán, trao đổi hay chia sẻ dữ liệu này cho bên thứ ba vì mục đích thương mại. Trình duyệt của bạn chỉ ghi nhớ rằng yêu cầu đã được gửi, không lưu số điện thoại, email hay địa chỉ trên máy. Việc xử lý dữ liệu cá nhân tuân theo Nghị định 13/2023/NĐ-CP về bảo vệ dữ liệu cá nhân.
             </p>
           </div>
         </div>

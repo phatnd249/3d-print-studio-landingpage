@@ -306,16 +306,19 @@
   .footer-main {
     flex-direction: column;
     align-items: stretch;
-    gap: 28px;
+    gap: 20px;
   }
 
   .footer-brand-info,
-  .footer-map-col {
+  .footer-map-col,
+  .footer-social-section {
+    flex: none;
     max-width: 100%;
+    min-height: 0;
   }
 
   .footer-map-iframe-wrapper {
-    height: 160px;
+    height: 150px;
   }
 
   .footer-social-section {
@@ -324,23 +327,91 @@
 }
 
 @media (max-width: 600px) {
+  .site-footer {
+    padding-top: 24px;
+    padding-bottom: 16px;
+  }
+
+  .footer-main {
+    gap: 16px;
+    padding-bottom: 16px;
+  }
+
   .footer-brand-info {
+    flex: none;
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
+    gap: 10px;
+    min-height: 0;
   }
 
   .footer-logo-img {
-    width: 80px;
+    width: 56px;
+  }
+
+  .footer-contact-details {
+    gap: 6px;
+  }
+
+  .contact-line {
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .footer-map-col {
+    flex: none;
+    min-height: 0;
+  }
+
+  .footer-map-iframe-wrapper {
+    height: 125px;
+  }
+
+  .footer-social-section {
+    flex: none;
+    align-items: flex-start;
+    gap: 8px;
+    min-height: 0;
+  }
+
+  .social-title {
+    font-size: 1.15rem;
+  }
+
+  .social-icons-row {
+    gap: 10px;
+  }
+
+  .social-icon-btn {
+    width: 38px;
+    height: 38px;
+  }
+
+  .social-icon-btn img {
+    width: 38px;
+    height: 38px;
+  }
+
+  .disclaimer-box,
+  .footer-disclaimer-box {
+    padding: 12px;
+    margin-bottom: 14px;
   }
 
   .disclaimer-header {
     flex-direction: column;
     align-items: flex-start;
+    gap: 6px;
+  }
+
+  .disclaimer-text {
+    font-size: 0.8rem;
+    line-height: 1.5;
   }
 
   .footer-bottom-inner {
     flex-direction: column;
     align-items: flex-start;
+    gap: 8px;
   }
 }

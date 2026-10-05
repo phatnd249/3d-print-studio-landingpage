@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://3dprintstudio.share4happy.com/sitemap.xml

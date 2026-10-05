@@ -208,6 +208,20 @@
 }
 
 @media (max-width: 600px) {
+  .btn {
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    word-break: break-word;
+  }
+
+  .modal-dialog {
+    padding: 24px 18px;
+    border-radius: var(--radius-xl);
+  }
+
   .modal-dialog-disclaimer {
     max-height: 92vh;
     padding: 0;

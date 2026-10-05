@@ -462,6 +462,99 @@
   display: block;
 }
 
+/* Honeypot: ẩn khỏi người dùng nhưng bot tự động điền sẽ bị phát hiện */
+.hp-field {
+  position: absolute !important;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Đồng ý xử lý dữ liệu cá nhân */
+.consent-group {
+  margin-top: 18px;
+}
+
+.consent-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.consent-check input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  margin: 2px 0 0;
+  accent-color: #0066ff;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.consent-check-text {
+  font-size: 0.8rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+.consent-policy {
+  margin: 6px 0 0 28px;
+}
+
+.consent-link {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: #0066ff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.consent-link:hover {
+  color: #1d4ed8;
+}
+
+.consent-group.has-error .consent-check-text {
+  color: #ef4444;
+}
+
+.consent-group.has-error .field-error-msg {
+  display: block;
+}
+
+/* Thông báo lỗi khi gửi form thất bại */
+.form-submit-error {
+  margin-top: 14px;
+  padding: 12px 14px;
+  background: #fef2f2;
+  border: 1.5px solid #fecaca;
+  border-radius: 12px;
+}
+
+.form-submit-error p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #b91c1c;
+  line-height: 1.5;
+}
+
+/* Ghi chú bảo mật trong thẻ đã gửi */
+.saved-privacy-note {
+  font-size: 0.78rem;
+  color: #64748b;
+  line-height: 1.5;
+  text-align: left;
+  background: #f1f5f9;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin: -8px 0 20px;
+}
+
 /* Submit Button */
 .btn-submit-lead {
   width: 100%;
@@ -480,6 +573,10 @@
   cursor: pointer;
   box-shadow: 0 8px 24px -4px rgba(0, 102, 255, 0.35);
   transition: all 0.25s ease;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.35;
+  word-break: break-word;
 }
 
 .btn-submit-lead:hover {
@@ -556,7 +653,9 @@
 .saved-info-row {
   display: flex;
   justify-content: space-between;
-  padding: 7px 0;
+  align-items: baseline;
+  gap: 16px;
+  padding: 8px 0;
   border-bottom: 1px dashed #e2e8f0;
   font-size: 0.88rem;
 }
@@ -568,11 +667,14 @@
 .saved-info-row .info-label {
   color: #64748b;
   font-weight: 600;
+  flex-shrink: 0;
 }
 
 .saved-info-row .info-val {
   color: #0f172a;
   font-weight: 700;
+  text-align: right;
+  word-break: break-word;
 }
 
 .submitted-cta-note {
@@ -598,6 +700,10 @@
   box-shadow: 0 8px 24px rgba(24, 119, 242, 0.35);
   transition: all 0.25s ease;
   margin-bottom: 14px;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.35;
+  word-break: break-word;
 }
 
 .btn-fb-redirect:hover {
@@ -626,36 +732,184 @@
 @media (max-width: 992px) {
   .quote-form-grid {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 20px;
   }
 
   .quote-info-card,
   .quote-form-card {
-    padding: 30px 24px;
+    padding: 24px 20px;
   }
 }
 
 @media (max-width: 600px) {
   .section-quote-form {
-    padding: 60px 0;
+    padding: 28px 0;
+  }
+
+  .quote-info-card,
+  .quote-form-card {
+    padding: 18px 14px;
+    border-radius: 16px;
+  }
+
+  .quote-info-header {
+    margin-bottom: 12px;
+  }
+
+  .quote-info-title {
+    font-size: 1.15rem;
+    margin-bottom: 4px;
+  }
+
+  .quote-info-subtitle {
+    font-size: 0.82rem;
+    margin-bottom: 12px;
+    line-height: 1.45;
   }
 
   .quote-benefits-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 
-  .region-pills-row {
-    grid-template-columns: 1fr;
+  .benefit-card {
+    padding: 10px 8px;
+    border-radius: 10px;
+  }
+
+  .benefit-icon-wrap {
+    width: 28px;
+    height: 28px;
+    margin-bottom: 6px;
+  }
+
+  .benefit-icon-wrap svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  .benefit-title {
+    font-size: 0.82rem;
+    margin-bottom: 2px;
+  }
+
+  .benefit-desc {
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  .quote-contact-direct {
+    padding: 12px;
+    border-radius: 12px;
+    margin-top: 12px;
+  }
+
+  .direct-contact-title {
+    font-size: 0.76rem;
+    margin-bottom: 8px;
+  }
+
+  .direct-contact-items {
+    gap: 8px;
+  }
+
+  .direct-contact-btn {
+    padding: 9px 12px;
+    font-size: 0.82rem;
+    border-radius: 10px;
+  }
+
+  .form-card-header {
+    margin-bottom: 12px;
   }
 
   .form-card-title,
   .submitted-title {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+
+  .form-card-desc,
+  .submitted-greeting {
+    font-size: 0.84rem;
+    margin-bottom: 12px;
+    line-height: 1.45;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .form-label {
+    font-size: 0.82rem;
+    margin-bottom: 4px;
+  }
+
+  .saved-info-box {
+    padding: 12px 10px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+  }
+
+  .saved-info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    padding: 6px 0;
+  }
+
+  .saved-info-row .info-label {
+    font-size: 0.74rem;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  .saved-info-row .info-val {
+    font-size: 0.9rem;
+    color: #0f172a;
+    text-align: left;
+    word-break: break-word;
+    width: 100%;
   }
 
   .btn-submit-lead,
   .btn-fb-redirect {
-    font-size: 0.92rem;
-    padding: 14px 18px;
+    font-size: 0.9rem;
+    padding: 13px 14px;
+    border-radius: 12px;
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  .btn-fb-redirect svg,
+  .btn-submit-lead svg {
+    flex-shrink: 0;
+  }
+
+  .region-pills-row {
+    grid-template-columns: 1fr;
+    gap: 5px;
+    margin-bottom: 8px;
+  }
+
+  .region-pill {
+    padding: 8px 10px;
+    font-size: 0.84rem;
+    border-radius: 8px;
+  }
+
+  /* Prevent iOS automatic input zooming */
+  .form-input,
+  .region-address-input {
+    font-size: 16px;
+    padding: 9px 12px 9px 36px;
+    border-radius: 10px;
+  }
+
+  .submitted-cta-note {
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+    line-height: 1.45;
   }
 }

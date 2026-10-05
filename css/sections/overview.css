@@ -166,23 +166,82 @@
 }
 
 @media (max-width: 768px) {
+  .section-overview {
+    padding-top: 36px;
+    padding-bottom: 36px;
+  }
+
+  .materials-main-subtitle {
+    margin: 0 auto 24px;
+  }
+
   .materials-grid {
     grid-template-columns: 1fr;
-    gap: 24px;
+    gap: 18px;
     max-width: 480px;
     margin: 0 auto;
   }
 
   .material-card {
-    padding: 36px 24px;
+    padding: 28px 20px;
     min-height: auto;
   }
 
   .material-title {
-    font-size: 2rem;
+    font-size: 1.8rem;
   }
 
   .material-tagline {
-    font-size: 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-overview {
+    padding-top: 28px;
+    padding-bottom: 32px;
+  }
+
+  .materials-main-title {
+    font-size: clamp(1.6rem, 7vw, 2.1rem);
+    margin-bottom: 8px;
+  }
+
+  .materials-main-subtitle {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin: 0 auto 16px;
+  }
+
+  .materials-grid {
+    gap: 12px;
+  }
+
+  .material-card {
+    padding: 18px 14px;
+    border-radius: 16px;
+  }
+
+  .material-pill-bar {
+    width: 44px;
+    height: 14px;
+    margin-bottom: 10px;
+  }
+
+  .material-title {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+
+  .material-tagline {
+    font-size: 0.88rem;
+    margin-bottom: 10px;
+  }
+
+  .material-bullet-list {
+    gap: 7px;
+    font-size: 0.84rem;
+    padding-top: 10px;
+    line-height: 1.45;
   }
 }

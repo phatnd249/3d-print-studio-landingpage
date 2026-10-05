@@ -9,23 +9,35 @@
   'use strict';
 
   // ============================================================
-  // CẤU HÌNH HỆ THỐNG & GOOGLE SHEET WEBHOOK
+  // CẤU HÌNH HỆ THỐNG & ENDPOINT NHẬN DỮ LIỆU
   // ============================================================
-  const FACEBOOK_PAGE_URL = 'https://www.facebook.com/share/19TBLiMFEG/?mibextid=wwXIfr';
-  const STORAGE_KEY = 'print3d_customer_info';
-  const GOOGLE_SHEET_CONFIG = {
-    sheetUrl: 'https://docs.google.com/spreadsheets/d/1p4HGXK7mepMIxt9l2TpughyTzt762zQnVgcLwzGlalg/edit?gid=0#gid=0',
-    sheetId: '1p4HGXK7mepMIxt9l2TpughyTzt762zQnVgcLwzGlalg',
-    webhookUrl: 'https://script.google.com/macros/s/AKfycbwSjUh2fPMloUnloNes4bxF7pEhEFy9nHGjktMOEHFAtRnnzVcpFBkClM4PO0426t1z/exec'
-  };
+  // Lưu ý bảo mật:
+  // - KHÔNG đặt Google Sheet ID / URL vào mã nguồn công khai (repo này public).
+  //   Hãy khoá quyền chia sẻ Sheet ở trong Google Drive.
+  // - Endpoint Apps Script là public, chống spam phải làm ở phía script
+  //   (xem SECURITY.md).
+  const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwSjUh2fPMloUnloNes4bxF7pEhEFy9nHGjktMOEHFAtRnnzVcpFBkClM4PO0426t1z/exec';
+
+  // Chỉ lưu trạng thái "đã gửi" + tên đã che. KHÔNG lưu SĐT / email / địa chỉ.
+  const STORAGE_KEY = 'print3d_lead_state';
+  const LEGACY_PII_KEYS = ['print3d_customer_info', 'print3d_leads_history'];
+  const STORAGE_TTL_DAYS = 30;
+  const MAX_LEN = { fullName: 60, phone: 20, email: 100, address: 200 };
+  const SEND_TIMEOUT_MS = 12000;
+  const PAGE_LOADED_AT = Date.now();
+
+  let isSubmitting = false;
+  let sessionLead = null;
 
   // ============================================================
   // 1. QUOTE REQUEST & LEAD CAPTURE FORM CONTROLLER
   // ============================================================
   function initCTA() {
+    // Dọn dữ liệu PII của phiên bản cũ (nếu khách từng điền form trước đây)
+    purgeLegacyPii();
+
     const form = document.getElementById('leadCaptureForm');
     const formWrapper = document.getElementById('quoteFormWrapper');
-    const submittedState = document.getElementById('leadSubmittedState');
     const btnReset = document.getElementById('btnResetLead');
 
     if (!formWrapper) return;
@@ -33,21 +45,27 @@
     // Khởi tạo Region Pills
     initRegionPills();
 
-    // Kiểm tra khách đã từng nhập thông tin chưa
+    // Kiểm tra khách đã từng gửi yêu cầu chưa
     checkAndRenderCustomerState();
 
-    // Xử lý gửi form
+    // Xử lý gửi form & nút bấm (chống gửi trùng nhờ cờ isSubmitting)
+    const submitBtn = document.getElementById('submitLeadBtn');
+    if (submitBtn) {
+      submitBtn.addEventListener('click', handleFormSubmit);
+    }
     if (form) {
       form.addEventListener('submit', handleFormSubmit);
 
-      // Xóa báo lỗi khi bắt đầu gõ
-      ['leadFullName', 'leadPhone', 'leadEmail', 'leadAddress'].forEach(function (fieldId) {
+      // Xóa báo lỗi khi bắt đầu gõ / tick
+      ['leadFullName', 'leadPhone', 'leadEmail', 'leadAddress', 'leadConsent'].forEach(function (fieldId) {
         const input = document.getElementById(fieldId);
         if (input) {
-          input.addEventListener('input', function () {
+          const clearError = function () {
             const group = input.closest('.form-group');
             if (group) group.classList.remove('has-error');
-          });
+          };
+          input.addEventListener('input', clearError);
+          input.addEventListener('change', clearError);
         }
       });
     }
@@ -57,9 +75,11 @@
       btnReset.addEventListener('click', function (e) {
         e.preventDefault();
         if (confirm('Bạn có muốn nhập lại thông tin mới không?')) {
-          localStorage.removeItem(STORAGE_KEY);
+          clearLeadState();
+          sessionLead = null;
           if (form) form.reset();
           resetRegionPills();
+          setSubmitError(false);
           checkAndRenderCustomerState();
         }
       });
@@ -67,6 +87,90 @@
 
     // Các nút CTA cuộn về form
     setupCtaButtonsListener();
+  }
+
+  /**
+   * Xoá các key localStorage phiên bản cũ từng chứa thông tin cá nhân
+   */
+  function purgeLegacyPii() {
+    LEGACY_PII_KEYS.forEach(function (key) {
+      try {
+        localStorage.removeItem(key);
+      } catch (e) { /* storage bị chặn -> bỏ qua */ }
+    });
+  }
+
+  /**
+   * Đọc trạng thái "đã gửi" đã lưu (không chứa PII), tự xoá khi quá hạn
+   */
+  function readLeadState() {
+    let raw = null;
+    try {
+      raw = localStorage.getItem(STORAGE_KEY);
+    } catch (e) {
+      return null;
+    }
+    if (!raw) return null;
+
+    try {
+      const state = JSON.parse(raw);
+      if (!state || typeof state !== 'object') return null;
+      const ageDays = (Date.now() - (Number(state.submittedAt) || 0)) / 86400000;
+      if (!(ageDays >= 0) || ageDays > STORAGE_TTL_DAYS) {
+        clearLeadState();
+        return null;
+      }
+      return state;
+    } catch (e) {
+      clearLeadState();
+      return null;
+    }
+  }
+
+  function writeLeadState(maskedName) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({
+        v: 1,
+        submittedAt: Date.now(),
+        maskedName: maskedName
+      }));
+    } catch (e) { /* storage bị chặn -> bỏ qua, không ảnh hưởng gửi dữ liệu */ }
+  }
+
+  function clearLeadState() {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (e) { /* bỏ qua */ }
+  }
+
+  /**
+   * Che bớt tên để ghi nhớ mà không lộ danh tính khách trên máy
+   */
+  function maskFullName(name) {
+    var parts = String(name || '').trim().split(/\s+/).filter(Boolean);
+    if (!parts.length) return 'Khách hàng';
+    if (parts.length === 1) return parts[0].slice(0, 2) + '***';
+    var last = parts[parts.length - 1];
+    return parts[0] + ' ' + '*'.repeat(3) + last.slice(-1);
+  }
+
+  /**
+   * Làm sạch giá trị nhập: bỏ ký tự điều khiển, gộp khoảng trắng, cắt độ dài
+   */
+  function cleanValue(value, maxLen) {
+    return String(value == null ? '' : value)
+      .replace(/[\u0000-\u001f\u007f]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim()
+      .slice(0, maxLen);
+  }
+
+  function isValidPhone(phone) {
+    return /^(?:\+?84|0)[35789]\d{8}$/.test(phone.replace(/\s+/g, ''));
+  }
+
+  function isValidEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email) && email.length <= MAX_LEN.email;
   }
 
   function initRegionPills() {
@@ -111,33 +215,36 @@
   function checkAndRenderCustomerState() {
     const form = document.getElementById('leadCaptureForm');
     const submittedState = document.getElementById('leadSubmittedState');
-    const savedDataStr = localStorage.getItem(STORAGE_KEY);
 
-    if (savedDataStr) {
-      try {
-        const data = JSON.parse(savedDataStr);
-        if (data && data.fullName) {
-          const savedLeadName = document.getElementById('savedLeadName');
-          const savedValName = document.getElementById('savedValName');
-          const savedValPhone = document.getElementById('savedValPhone');
-          const savedValEmail = document.getElementById('savedValEmail');
-          const savedValRegion = document.getElementById('savedValRegion');
+    // Ưu tiên dữ liệu trong phiên (vừa gửi xong) để khách thấy lại thông tin,
+    // nếu không có thì dùng trạng thái đã lưu (chỉ có tên đã che).
+    const lead = sessionLead || readLeadState();
 
-          const displayRegion = data.address ? (data.address + ' - ' + data.region) : (data.region || '-');
+    if (lead) {
+      const isSession = !!sessionLead;
+      const displayRegion = lead.address
+        ? (lead.address + ' - ' + lead.region)
+        : (lead.region || '-');
 
-          if (savedLeadName) savedLeadName.textContent = data.fullName;
-          if (savedValName) savedValName.textContent = data.fullName;
-          if (savedValPhone) savedValPhone.textContent = data.phone || '-';
-          if (savedValEmail) savedValEmail.textContent = data.email || '-';
-          if (savedValRegion) savedValRegion.textContent = displayRegion;
+      const setText = function (id, value) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value;
+      };
 
-          if (form) form.style.display = 'none';
-          if (submittedState) submittedState.style.display = 'block';
-          return true;
-        }
-      } catch (e) {
-        console.warn('Lỗi đọc localStorage:', e);
+      setText('savedLeadName', lead.fullName || lead.maskedName || 'Khách hàng');
+      setText('savedValName', lead.fullName || lead.maskedName || '-');
+      setText('savedValPhone', isSession ? (lead.phone || '-') : '••••••••');
+      setText('savedValEmail', isSession ? (lead.email || '-') : '••••••••');
+      setText('savedValRegion', isSession ? displayRegion : (lead.region || '••••••••'));
+
+      const privacyNote = document.getElementById('savedPrivacyNote');
+      if (privacyNote) {
+        privacyNote.style.display = isSession ? 'none' : '';
       }
+
+      if (form) form.style.display = 'none';
+      if (submittedState) submittedState.style.display = 'block';
+      return true;
     }
 
     if (form) form.style.display = 'block';
@@ -145,60 +252,75 @@
     return false;
   }
 
+  function setSubmitError(show) {
+    const box = document.getElementById('leadSubmitError');
+    if (box) box.style.display = show ? 'block' : 'none';
+  }
+
   async function handleFormSubmit(e) {
     if (e && e.preventDefault) e.preventDefault();
+    if (isSubmitting) return false;
+
+    const honeypot = document.getElementById('leadWebsite');
+    if (honeypot && honeypot.value.trim() !== '') {
+      // Bot đã điền ô ẩn -> bỏ qua, không gửi dữ liệu đi
+      return false;
+    }
 
     const fullNameInput = document.getElementById('leadFullName');
     const phoneInput = document.getElementById('leadPhone');
     const emailInput = document.getElementById('leadEmail');
     const hiddenRegionInput = document.getElementById('leadRegion');
     const addressInput = document.getElementById('leadAddress');
+    const consentInput = document.getElementById('leadConsent');
     const submitBtn = document.getElementById('submitLeadBtn');
+
+    const fullName = cleanValue(fullNameInput && fullNameInput.value, MAX_LEN.fullName);
+    const phone = cleanValue(phoneInput && phoneInput.value, MAX_LEN.phone);
+    const email = cleanValue(emailInput && emailInput.value, MAX_LEN.email).toLowerCase();
+    const region = cleanValue(hiddenRegionInput && hiddenRegionInput.value, 60) || 'Biên Hòa, Đồng Nai';
+    const address = cleanValue(addressInput && addressInput.value, MAX_LEN.address);
+    const consented = !!(consentInput && consentInput.checked);
 
     let hasError = false;
 
-    const fullName = fullNameInput ? fullNameInput.value.trim() : '';
-    const phone = phoneInput ? phoneInput.value.trim() : '';
-    const email = emailInput ? emailInput.value.trim() : '';
-    const region = hiddenRegionInput ? hiddenRegionInput.value : 'Biên Hòa, Đồng Nai';
-    const address = addressInput ? addressInput.value.trim() : '';
-
-    if (!fullName || fullName.length < 2) {
+    if (fullName.length < 2) {
       showFieldError('leadFullName');
       hasError = true;
     }
-
-    const phoneRegex = /(84|0[3|5|7|8|9])+([0-9]{8})\b/;
-    if (!phone || !phoneRegex.test(phone.replace(/\s+/g, ''))) {
+    if (!isValidPhone(phone)) {
       showFieldError('leadPhone');
       hasError = true;
     }
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email)) {
+    if (!isValidEmail(email)) {
       showFieldError('leadEmail');
+      hasError = true;
+    }
+    if (!consented) {
+      showFieldError('leadConsent');
       hasError = true;
     }
 
     if (hasError) return false;
 
-    const displayRegion = address ? (address + ' (' + region + ')') : region;
+    setSubmitError(false);
 
+    // Dữ liệu chỉ tồn tại trong RAM của trang này cho tới khi gửi xong
     const leadData = {
       fullName: fullName,
       phone: phone,
       email: email,
       region: region,
       address: address,
-      displayRegion: displayRegion,
-      googleSheetTarget: GOOGLE_SHEET_CONFIG.sheetUrl,
       source: 'Website Landing Page',
-      submittedAt: new Date().toLocaleString('vi-VN')
+      consent: true,
+      pageUrl: window.location.href.split('#')[0],
+      elapsedMs: Date.now() - PAGE_LOADED_AT,
+      submittedAt: new Date().toISOString()
     };
 
-    console.log('🚀 Đang gửi dữ liệu khách hàng:', leadData);
+    isSubmitting = true;
 
-    // Trạng thái nút bấm
     const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
     if (submitBtn) {
       submitBtn.disabled = true;
@@ -207,35 +329,27 @@
           <circle cx="12" cy="12" r="10" stroke-opacity="0.25"></circle>
           <path d="M12 2a10 10 0 0 1 10 10"></path>
         </svg>
-        <span>Đang lưu thông tin &amp; kết nối Facebook...</span>
+        <span>Đang gửi thông tin...</span>
       `;
     }
 
-    // 1. Lưu vào localStorage
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(leadData));
+    const sent = await sendLeadToGoogleSheet(leadData);
 
-    // 2. Gửi dữ liệu vào Google Sheet Webhook
-    try {
-      await sendLeadToGoogleSheet(leadData);
-    } catch (err) {
-      console.warn('Lỗi khi gửi webhook:', err);
+    if (submitBtn) {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnHtml;
+    }
+    isSubmitting = false;
+
+    if (!sent) {
+      // Không gửi được -> giữ nguyên form để khách thử lại, không lưu gì
+      setSubmitError(true);
+      return false;
     }
 
-    // 3. Mở Facebook trong tab mới
-    try {
-      window.open(FACEBOOK_PAGE_URL, '_blank', 'noopener,noreferrer');
-    } catch (e) {
-      console.warn('Popup blocked:', e);
-    }
-
-    // 4. Cập nhật giao diện sang state đã gửi
-    setTimeout(function () {
-      checkAndRenderCustomerState();
-      if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = originalBtnHtml;
-      }
-    }, 400);
+    sessionLead = leadData;
+    writeLeadState(maskFullName(fullName));
+    checkAndRenderCustomerState();
 
     return false;
   }
@@ -251,28 +365,34 @@
     }
   }
 
+  /**
+   * Gửi dữ liệu lên endpoint Apps Script.
+   * Trả về true nếu request đã rời máy, false nếu gửi hỏng (mất mạng, bị chặn...).
+   * Không log PII ra console và không lưu PII xuống máy.
+   */
   async function sendLeadToGoogleSheet(data) {
-    console.log('📊 Đang gửi tới Webhook:', GOOGLE_SHEET_CONFIG.webhookUrl);
-    if (!GOOGLE_SHEET_CONFIG.webhookUrl) return;
+    if (!LEAD_ENDPOINT) return false;
+
+    const controller = ('AbortController' in window) ? new AbortController() : null;
+    const timer = controller ? setTimeout(function () { controller.abort(); }, SEND_TIMEOUT_MS) : null;
 
     try {
-      await fetch(GOOGLE_SHEET_CONFIG.webhookUrl, {
+      await fetch(LEAD_ENDPOINT, {
         method: 'POST',
         mode: 'no-cors',
+        keepalive: true,
         headers: {
           'Content-Type': 'text/plain;charset=utf-8'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
+        signal: controller ? controller.signal : undefined
       });
-      console.log('✅ Đã gửi thông tin đến Google Sheet thành công!');
+      return true;
     } catch (err) {
-      console.warn('⚠️ Gửi webhook thất bại, lưu backup vào máy:', err);
-      try {
-        const historyKey = 'print3d_leads_history';
-        const list = JSON.parse(localStorage.getItem(historyKey) || '[]');
-        list.push(data);
-        localStorage.setItem(historyKey, JSON.stringify(list));
-      } catch (e) {}
+      console.warn('[lead] Không gửi được dữ liệu:', err && err.name);
+      return false;
+    } finally {
+      if (timer) clearTimeout(timer);
     }
   }
 
@@ -288,8 +408,7 @@
             block: 'start'
           });
 
-          const isSubmitted = localStorage.getItem(STORAGE_KEY);
-          if (isSubmitted) {
+          if (readLeadState()) {
             const card = document.getElementById('leadSubmittedState');
             if (card) {
               card.style.transition = 'transform 0.3s ease';

@@ -127,17 +127,38 @@
 
 @media (max-width: 640px) {
   .section-hero {
-    padding-top: 36px;
-    padding-bottom: 60px;
+    padding-top: 22px;
+    padding-bottom: 30px;
+  }
+
+  .hero-grid {
+    gap: 20px;
+  }
+
+  .visual-wrapper {
+    max-width: min(280px, 75vw);
+    margin: 0 auto;
   }
 
   .hero-title {
-    font-size: 2.8rem;
+    font-size: clamp(2.2rem, 10vw, 2.75rem);
+    margin-bottom: 16px;
+  }
+
+  .hero-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .hero-description br {
+    display: none;
   }
 
   .hero-actions {
     flex-direction: column;
     width: 100%;
+    gap: 12px;
   }
 
   .hero-actions .btn {
