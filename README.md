@@ -442,6 +442,6 @@ Distributed under the MIT License. See `LICENSE` file for more information.
   
 **Made with ❤️ by Print 3D Studio**
 
-[🏠 Website](https://share4happy.com) • [💬 Zalo](https://zalo.me/0372517173) • [📘 Facebook](https://facebook.com) • [🛒 Shopee](https://shopee.vn)
+[🏠 Website](https://share4happy.com) • [💬 Zalo](https://zalo.me/0372517173) • [📘 Facebook](https://facebook.com) • [🛒 Shopee](https://shopee.vn/locprri)
 
 </div>

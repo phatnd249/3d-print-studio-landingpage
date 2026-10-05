@@ -13,7 +13,13 @@ export const SITE_METADATA = {
   social: {
     facebook: 'https://www.facebook.com/share/19TBLiMFEG/?mibextid=wwXIfr',
     zalo: 'https://zalo.me/0372517173',
-    shopee: 'https://shopee.vn'
+    shopee: 'https://shopee.vn/locprri'
+  },
+  quoteForm: '#quote-form',
+  googleSheet: {
+    url: 'https://docs.google.com/spreadsheets/d/1p4HGXK7mepMIxt9l2TpughyTzt762zQnVgcLwzGlalg/edit?gid=0#gid=0',
+    id: '1p4HGXK7mepMIxt9l2TpughyTzt762zQnVgcLwzGlalg',
+    webhookUrl: 'https://script.google.com/macros/s/AKfycbwSjUh2fPMloUnloNes4bxF7pEhEFy9nHGjktMOEHFAtRnnzVcpFBkClM4PO0426t1z/exec'
   }
 };
 

@@ -35,26 +35,6 @@ export function initModal() {
       });
     }
   });
-
-  const quoteForm = document.getElementById('quoteForm');
-  if (quoteForm) {
-    quoteForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const successMsg = document.getElementById('formSuccessMsg');
-      if (successMsg) {
-        successMsg.style.display = 'block';
-      }
-      setTimeout(() => {
-        window.open('https://www.facebook.com/share/19TBLiMFEG/?mibextid=wwXIfr', '_blank');
-        const modal = quoteForm.closest('.modal');
-        if (modal) {
-          closeModal(modal);
-          quoteForm.reset();
-          if (successMsg) successMsg.style.display = 'none';
-        }
-      }, 1500);
-    });
-  }
 }
 
 function closeModal(modal) {
