@@ -1,6 +1,6 @@
 /**
- * Section: NEWS / BLOG (Tin Tức)
- * Section hiển thị tin tức từ share4happy.com
+ * Section: NEWS / BLOG (Tin Tức) - Carousel Layout
+ * Section hiển thị tin tức từ share4happy.com dạng carousel
  */
 .section-news {
   background: linear-gradient(180deg, #ffffff 0%, #f8fbff 100%);
@@ -19,62 +19,133 @@
   background: linear-gradient(90deg, transparent 0%, rgba(0, 102, 255, 0.2) 50%, transparent 100%);
 }
 
-/* News Grid - 1 hàng ngang với scroll horizontal */
-.news-grid {
-  display: flex;
-  gap: 24px;
-  margin-top: 24px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding-bottom: 16px;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
-  position: relative;
-}
-
-/* Gradient fade effect ở cuối để hint scroll */
 .news-container {
   position: relative;
 }
 
-.news-container::after {
+/* ==========================================
+   CAROUSEL WRAPPER & VIEWPORT
+   ========================================== */
+.news-carousel {
+  position: relative;
+  margin-top: 32px;
+  padding: 0 56px; /* Space for arrow buttons */
+}
+
+.news-carousel-viewport {
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.news-carousel-track {
+  display: flex;
+  gap: 24px;
+  transition: transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  will-change: transform;
+}
+
+/* ==========================================
+   CAROUSEL NAVIGATION ARROWS
+   ========================================== */
+.news-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(calc(-50% - 20px)); /* offset for dots space */
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 102, 255, 0.25);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  box-shadow: 0 4px 16px rgba(0, 102, 255, 0.1);
+  transition: all var(--transition-base);
+  color: #0066ff;
+}
+
+.news-carousel-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.news-carousel-btn:hover:not(:disabled) {
+  background: #0066ff;
+  color: #ffffff;
+  border-color: #0066ff;
+  box-shadow: 0 8px 28px rgba(0, 102, 255, 0.35);
+  transform: translateY(calc(-50% - 20px)) scale(1.08);
+}
+
+.news-carousel-btn:active:not(:disabled) {
+  transform: translateY(calc(-50% - 20px)) scale(0.95);
+}
+
+.news-carousel-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.news-carousel-prev {
+  left: 0;
+}
+
+.news-carousel-next {
+  right: 0;
+}
+
+/* ==========================================
+   CAROUSEL DOTS / PAGINATION
+   ========================================== */
+.news-carousel-dots {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 32px;
+  padding: 8px 0;
+}
+
+.news-carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(0, 102, 255, 0.18);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+}
+
+.news-carousel-dot::after {
   content: '';
   position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 80px;
-  width: 80px;
-  background: linear-gradient(to left, #f8fbff, transparent);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity var(--transition-base);
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  transition: border-color 0.35s ease;
 }
 
-.news-container.has-scroll::after {
-  opacity: 1;
+.news-carousel-dot:hover {
+  background: rgba(0, 102, 255, 0.4);
+  transform: scale(1.2);
 }
 
-/* Hide scrollbar nhưng vẫn scroll được */
-.news-grid::-webkit-scrollbar {
-  height: 6px;
+.news-carousel-dot.active {
+  width: 32px;
+  border-radius: 100px;
+  background: linear-gradient(135deg, #0066ff 0%, #0052cc 100%);
+  box-shadow: 0 2px 10px rgba(0, 102, 255, 0.35);
 }
 
-.news-grid::-webkit-scrollbar-track {
-  background: rgba(147, 197, 253, 0.1);
-  border-radius: 10px;
-}
-
-.news-grid::-webkit-scrollbar-thumb {
-  background: rgba(0, 102, 255, 0.3);
-  border-radius: 10px;
-  transition: background var(--transition-fast);
-}
-
-.news-grid::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 102, 255, 0.5);
-}
-
-/* News Card - Fixed width cho horizontal scroll */
+/* ==========================================
+   NEWS CARD STYLES
+   ========================================== */
 .news-card {
   background: #ffffff;
   border: 1.5px solid rgba(147, 197, 253, 0.4);
@@ -84,10 +155,8 @@
   transition: all var(--transition-base);
   display: flex;
   flex-direction: column;
-  min-width: 340px;
-  max-width: 340px;
-  height: auto;
   flex-shrink: 0;
+  height: auto;
 }
 
 .news-card:hover {
@@ -222,7 +291,9 @@
   transform: translateX(4px);
 }
 
-/* Loading State */
+/* ==========================================
+   LOADING STATE
+   ========================================== */
 .news-loading {
   text-align: center;
   padding: 60px 20px;
@@ -250,7 +321,9 @@
   font-weight: 600;
 }
 
-/* Empty State (Khi chưa có tin tức) */
+/* ==========================================
+   EMPTY STATE
+   ========================================== */
 .news-empty-state {
   text-align: center;
   padding: 80px 20px;
@@ -315,7 +388,9 @@
   height: 20px;
 }
 
-/* CTA Button để xem thêm */
+/* ==========================================
+   CTA BUTTON
+   ========================================== */
 .news-cta-wrapper {
   display: flex;
   justify-content: center;
@@ -357,40 +432,60 @@
   transform: translateX(4px);
 }
 
-/* Responsive News Section */
-@media (max-width: 1024px) {
+/* ==========================================
+   RESPONSIVE - Carousel
+   ========================================== */
+
+/* Desktop: 3 cards visible */
+@media (min-width: 1025px) {
   .news-card {
-    min-width: 300px;
-    max-width: 300px;
+    width: calc((100% - 48px) / 3); /* 3 cols, 2 gaps of 24px */
   }
 }
 
-@media (max-width: 768px) {
-  .section-news {
-    padding-top: 36px;
-    padding-bottom: 36px;
+/* Tablet: 2 cards visible */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .news-carousel {
+    padding: 0 48px;
+  }
+
+  .news-card {
+    width: calc((100% - 24px) / 2); /* 2 cols, 1 gap of 24px */
+  }
+
+  .news-carousel-btn {
+    width: 42px;
+    height: 42px;
+  }
+
+  .news-carousel-btn svg {
+    width: 20px;
+    height: 20px;
   }
 }
 
+/* Mobile: 1 card visible */
 @media (max-width: 640px) {
   .section-news {
     padding-top: 28px;
     padding-bottom: 30px;
   }
 
-  .news-grid {
-    margin-top: 14px;
+  .news-carousel {
+    padding: 0;
+    margin-top: 20px;
+  }
+
+  .news-carousel-track {
     gap: 16px;
-    padding-bottom: 10px;
   }
 
   .news-card {
-    min-width: 270px;
-    max-width: 270px;
+    width: 100%;
   }
 
   .news-thumb {
-    height: 165px;
+    height: 180px;
   }
 
   .news-content {
@@ -399,6 +494,25 @@
 
   .news-title {
     font-size: 1.1rem;
+  }
+
+  /* Hide arrow buttons on mobile, use swipe */
+  .news-carousel-btn {
+    display: none;
+  }
+
+  .news-carousel-dots {
+    margin-top: 20px;
+    gap: 8px;
+  }
+
+  .news-carousel-dot {
+    width: 8px;
+    height: 8px;
+  }
+
+  .news-carousel-dot.active {
+    width: 26px;
   }
 
   .news-empty-icon {
@@ -413,5 +527,12 @@
 
   .news-empty-title {
     font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .section-news {
+    padding-top: 36px;
+    padding-bottom: 36px;
   }
 }

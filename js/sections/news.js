@@ -1,5 +1,5 @@
 // ============================================================
-// NEWS SECTION - WordPress API Integration
+// NEWS SECTION - WordPress API Integration + Carousel
 // ============================================================
 
 const NEWS_CONFIG = {
@@ -138,7 +138,299 @@ function renderNewsCard(post) {
   `;
 }
 
+// ============================================================
+// CAROUSEL ENGINE
+// ============================================================
+
 let isNewsLoaded = false;
+let carouselState = {
+  currentIndex: 0,
+  totalCards: 0,
+  visibleCards: 3,
+  gap: 24,
+  autoPlayTimer: null,
+  autoPlayDelay: 5000,
+  isDragging: false,
+  startX: 0,
+  currentTranslate: 0,
+  prevTranslate: 0,
+};
+
+/**
+ * Tính số card hiển thị dựa trên viewport width
+ */
+function getVisibleCards() {
+  const width = window.innerWidth;
+  if (width <= 640) return 1;
+  if (width <= 1024) return 2;
+  return 3;
+}
+
+/**
+ * Tính số "page" (steps) của carousel
+ */
+function getTotalPages() {
+  const maxIndex = carouselState.totalCards - carouselState.visibleCards;
+  return Math.max(1, maxIndex + 1);
+}
+
+/**
+ * Update carousel position with smooth animation
+ */
+function updateCarousel(animate = true) {
+  const track = document.querySelector('.news-carousel-track');
+  const prevBtn = document.querySelector('.news-carousel-prev');
+  const nextBtn = document.querySelector('.news-carousel-next');
+
+  if (!track) return;
+
+  const cards = track.querySelectorAll('.news-card');
+  if (cards.length === 0) return;
+
+  // Calculate card width from the first card's actual rendered width
+  const trackWidth = track.parentElement.clientWidth;
+  const totalGaps = (carouselState.visibleCards - 1) * carouselState.gap;
+  const cardWidth = (trackWidth - totalGaps) / carouselState.visibleCards;
+
+  // Set card widths
+  cards.forEach(card => {
+    card.style.width = `${cardWidth}px`;
+  });
+
+  // Calculate offset
+  const offset = carouselState.currentIndex * (cardWidth + carouselState.gap);
+
+  if (animate) {
+    track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1)';
+  } else {
+    track.style.transition = 'none';
+  }
+  track.style.transform = `translateX(-${offset}px)`;
+  carouselState.currentTranslate = -offset;
+  carouselState.prevTranslate = -offset;
+
+  // Update button states
+  const maxIndex = carouselState.totalCards - carouselState.visibleCards;
+  if (prevBtn) prevBtn.disabled = carouselState.currentIndex <= 0;
+  if (nextBtn) nextBtn.disabled = carouselState.currentIndex >= maxIndex;
+
+  // Update dots
+  updateDots();
+}
+
+/**
+ * Generate and update dot pagination
+ */
+function updateDots() {
+  const dotsContainer = document.querySelector('.news-carousel-dots');
+  if (!dotsContainer) return;
+
+  const totalPages = getTotalPages();
+
+  // Only regenerate dots if count changed
+  if (dotsContainer.children.length !== totalPages) {
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < totalPages; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'news-carousel-dot';
+      dot.setAttribute('aria-label', `Trang ${i + 1}`);
+      dot.addEventListener('click', () => {
+        goToSlide(i);
+        resetAutoPlay();
+      });
+      dotsContainer.appendChild(dot);
+    }
+  }
+
+  // Update active state
+  const dots = dotsContainer.querySelectorAll('.news-carousel-dot');
+  dots.forEach((dot, i) => {
+    dot.classList.toggle('active', i === carouselState.currentIndex);
+  });
+}
+
+/**
+ * Navigate to a specific slide
+ */
+function goToSlide(index) {
+  const maxIndex = carouselState.totalCards - carouselState.visibleCards;
+  carouselState.currentIndex = Math.max(0, Math.min(index, maxIndex));
+  updateCarousel();
+}
+
+/**
+ * Navigate to next slide
+ */
+function nextSlide() {
+  const maxIndex = carouselState.totalCards - carouselState.visibleCards;
+  if (carouselState.currentIndex < maxIndex) {
+    carouselState.currentIndex++;
+    updateCarousel();
+  }
+}
+
+/**
+ * Navigate to previous slide
+ */
+function prevSlide() {
+  if (carouselState.currentIndex > 0) {
+    carouselState.currentIndex--;
+    updateCarousel();
+  }
+}
+
+/**
+ * Auto-play carousel
+ */
+function startAutoPlay() {
+  stopAutoPlay();
+  carouselState.autoPlayTimer = setInterval(() => {
+    const maxIndex = carouselState.totalCards - carouselState.visibleCards;
+    if (carouselState.currentIndex >= maxIndex) {
+      carouselState.currentIndex = 0;
+    } else {
+      carouselState.currentIndex++;
+    }
+    updateCarousel();
+  }, carouselState.autoPlayDelay);
+}
+
+function stopAutoPlay() {
+  if (carouselState.autoPlayTimer) {
+    clearInterval(carouselState.autoPlayTimer);
+    carouselState.autoPlayTimer = null;
+  }
+}
+
+function resetAutoPlay() {
+  stopAutoPlay();
+  startAutoPlay();
+}
+
+/**
+ * Setup touch/swipe support
+ */
+function setupSwipe() {
+  const viewport = document.querySelector('.news-carousel-viewport');
+  if (!viewport) return;
+
+  let startX = 0;
+  let startY = 0;
+  let isDragging = false;
+  let isHorizontalSwipe = null;
+
+  function onTouchStart(e) {
+    isDragging = true;
+    isHorizontalSwipe = null;
+    startX = e.touches ? e.touches[0].clientX : e.clientX;
+    startY = e.touches ? e.touches[0].clientY : e.clientY;
+    stopAutoPlay();
+  }
+
+  function onTouchMove(e) {
+    if (!isDragging) return;
+
+    const currentX = e.touches ? e.touches[0].clientX : e.clientX;
+    const currentY = e.touches ? e.touches[0].clientY : e.clientY;
+    const diffX = currentX - startX;
+    const diffY = currentY - startY;
+
+    // Determine swipe direction on first move
+    if (isHorizontalSwipe === null) {
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 5) {
+        isHorizontalSwipe = true;
+      } else if (Math.abs(diffY) > Math.abs(diffX) && Math.abs(diffY) > 5) {
+        isHorizontalSwipe = false;
+        isDragging = false;
+        return;
+      }
+    }
+
+    if (isHorizontalSwipe) {
+      e.preventDefault();
+    }
+  }
+
+  function onTouchEnd(e) {
+    if (!isDragging) return;
+    isDragging = false;
+
+    const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+    const diff = endX - startX;
+    const threshold = 50;
+
+    if (Math.abs(diff) > threshold) {
+      if (diff < 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+
+    startAutoPlay();
+  }
+
+  viewport.addEventListener('touchstart', onTouchStart, { passive: true });
+  viewport.addEventListener('touchmove', onTouchMove, { passive: false });
+  viewport.addEventListener('touchend', onTouchEnd, { passive: true });
+
+  // Mouse drag support for desktop
+  viewport.addEventListener('mousedown', onTouchStart);
+  viewport.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    onTouchMove(e);
+  });
+  viewport.addEventListener('mouseup', onTouchEnd);
+  viewport.addEventListener('mouseleave', () => {
+    if (isDragging) {
+      isDragging = false;
+      startAutoPlay();
+    }
+  });
+}
+
+/**
+ * Setup keyboard navigation
+ */
+function setupKeyboard() {
+  const carousel = document.querySelector('.news-carousel');
+  if (!carousel) return;
+
+  carousel.setAttribute('tabindex', '0');
+  carousel.setAttribute('role', 'region');
+  carousel.setAttribute('aria-label', 'Tin tức carousel');
+
+  carousel.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      prevSlide();
+      resetAutoPlay();
+    } else if (e.key === 'ArrowRight') {
+      nextSlide();
+      resetAutoPlay();
+    }
+  });
+}
+
+/**
+ * Handle window resize
+ */
+function handleResize() {
+  const newVisibleCards = getVisibleCards();
+  if (newVisibleCards !== carouselState.visibleCards) {
+    carouselState.visibleCards = newVisibleCards;
+    // Ensure current index is valid
+    const maxIndex = carouselState.totalCards - carouselState.visibleCards;
+    if (carouselState.currentIndex > maxIndex) {
+      carouselState.currentIndex = Math.max(0, maxIndex);
+    }
+  }
+  updateCarousel(false);
+}
+
+// ============================================================
+// MAIN INIT
+// ============================================================
 
 /**
  * Fetch và hiển thị tin tức từ WordPress API
@@ -146,11 +438,12 @@ let isNewsLoaded = false;
 export async function initNews() {
   if (isNewsLoaded) return;
   
-  const newsGrid = document.querySelector('.news-grid');
+  const newsCarousel = document.querySelector('.news-carousel');
   const emptyState = document.querySelector('.news-empty-state');
   const ctaWrapper = document.querySelector('.news-cta-wrapper');
+  const track = document.querySelector('.news-carousel-track');
 
-  if (!newsGrid || !emptyState) {
+  if (!track || !emptyState) {
     console.error('News section elements not found');
     return;
   }
@@ -166,7 +459,7 @@ export async function initNews() {
       </div>
     `;
 
-    // Fetch posts với featured media và author (nếu có categoryId thì lọc theo category, ngược lại lấy bài mới nhất)
+    // Fetch posts với featured media và author
     const fetchUrl = NEWS_CONFIG.categoryId
       ? `${NEWS_CONFIG.apiUrl}?categories=${NEWS_CONFIG.categoryId}&per_page=${NEWS_CONFIG.perPage}&_embed`
       : `${NEWS_CONFIG.apiUrl}?per_page=${NEWS_CONFIG.perPage}&_embed`;
@@ -203,24 +496,58 @@ export async function initNews() {
       author_name: post._embedded?.author?.[0]?.name || 'Admin'
     }));
 
-    // Render news cards
-    newsGrid.innerHTML = processedPosts.map(post => renderNewsCard(post)).join('');
+    // Render news cards into carousel track
+    track.innerHTML = processedPosts.map(post => renderNewsCard(post)).join('');
 
-    // Ẩn empty state và hiển thị grid + CTA
+    // Setup carousel state
+    carouselState.totalCards = processedPosts.length;
+    carouselState.visibleCards = getVisibleCards();
+    carouselState.currentIndex = 0;
+
+    // Ẩn empty state và hiển thị carousel + CTA
     emptyState.style.display = 'none';
-    newsGrid.style.display = 'flex';
+    if (newsCarousel) newsCarousel.style.display = 'block';
     if (ctaWrapper) {
       ctaWrapper.style.display = 'flex';
       ctaWrapper.style.justifyContent = 'center';
     }
 
-    // Thêm class để hiển thị scroll indicator nếu content overflow
-    setTimeout(() => {
-      const container = document.querySelector('.news-container');
-      if (container && newsGrid.scrollWidth > newsGrid.clientWidth) {
-        container.classList.add('has-scroll');
-      }
-    }, 100);
+    // Initialize carousel UI
+    updateCarousel(false);
+
+    // Setup navigation buttons
+    const prevBtn = document.querySelector('.news-carousel-prev');
+    const nextBtn = document.querySelector('.news-carousel-next');
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        prevSlide();
+        resetAutoPlay();
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        nextSlide();
+        resetAutoPlay();
+      });
+    }
+
+    // Setup swipe, keyboard, and auto-play
+    setupSwipe();
+    setupKeyboard();
+    startAutoPlay();
+
+    // Pause auto-play on hover
+    if (newsCarousel) {
+      newsCarousel.addEventListener('mouseenter', stopAutoPlay);
+      newsCarousel.addEventListener('mouseleave', startAutoPlay);
+    }
+
+    // Handle resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(handleResize, 150);
+    });
 
   } catch (error) {
     console.error('Error loading news:', error);

@@ -583,49 +583,28 @@
           </a>
         </div>
 
-        <!-- News Grid (Sẽ hiển thị khi có tin tức, hiện tại ẩn) -->
-        <div class="news-grid" style="display: none;">
-          <!-- News Card 1 (Template) -->
-          <article class="news-card">
-            <div class="news-thumb">
-              <img src="./asset/images/gallery-figure.jpg" alt="Tiêu đề tin tức" class="news-thumb-img">
+        <!-- News Carousel (Sẽ hiển thị khi có tin tức, hiện tại ẩn) -->
+        <div class="news-carousel" style="display: none;">
+          <div class="news-carousel-viewport">
+            <div class="news-carousel-track">
+              <!-- News cards sẽ được JS render vào đây -->
             </div>
-            <div class="news-content">
-              <div class="news-meta">
-                <span class="news-date">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                  </svg>
-                  15/01/2026
-                </span>
-                <span class="news-author">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                    <circle cx="12" cy="7" r="4"></circle>
-                  </svg>
-                  Admin
-                </span>
-              </div>
-              <h3 class="news-title">Hướng dẫn chọn vật liệu in 3D phù hợp cho từng dự án</h3>
-              <p class="news-excerpt">
-                Tìm hiểu đặc tính của từng loại nhựa in 3D như PLA, PETG, ABS và TPU để chọn được vật liệu tốt nhất cho
-                sản phẩm của bạn...
-              </p>
-              <a href="#" class="news-read-more">
-                Đọc tiếp
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-                  stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </a>
-            </div>
-          </article>
+          </div>
+
+          <!-- Carousel Navigation Arrows -->
+          <button class="news-carousel-btn news-carousel-prev" aria-label="Tin trước" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="news-carousel-btn news-carousel-next" aria-label="Tin tiếp theo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 6 15 12 9 18"></polyline>
+            </svg>
+          </button>
+
+          <!-- Carousel Dots -->
+          <div class="news-carousel-dots"></div>
         </div>
 
         <!-- CTA để xem thêm tin tức (Hiển thị khi có tin tức) -->

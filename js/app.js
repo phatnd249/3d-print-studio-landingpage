@@ -166,7 +166,8 @@
   }
 
   function isValidPhone(phone) {
-    return /^(?:\+?84|0)[35789]\d{8}$/.test(phone.replace(/\s+/g, ''));
+    // Số di động VN: 10 số cục bộ (03x/05x/07x/08x/09x) hoặc dạng +84 + 9 số
+    return /^(?:\+?84[35789]|0[35789])\d{8}$/.test(String(phone || '').replace(/[\s.()-]/g, ''));
   }
 
   function isValidEmail(email) {
